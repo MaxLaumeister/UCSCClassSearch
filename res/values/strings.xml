@@ -4,5 +4,8 @@
     <string name="app_name">UCSC Course Browser</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_results">ResultsActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_bookmark">BookmarkActivity</string>
 
 </resources>
