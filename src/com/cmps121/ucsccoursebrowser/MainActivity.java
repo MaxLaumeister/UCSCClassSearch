@@ -6,19 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -37,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
 		}
 		
 		listViewSearch = (ListView) findViewById(R.id.listViewSearch);
-		Log.d("CourseBrowser", listViewSearch.toString());
 		initListViewSearch();
 	}
 	
