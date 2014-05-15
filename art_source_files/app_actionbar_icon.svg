@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1024"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="app_actionbar_icon.svg"
+   inkscape:export-filename="/home/max/androidsdk-workspace/UCSCCourseBrowser/art_source_files/xxh.png"
+   inkscape:export-xdpi="12.65625"
+   inkscape:export-ydpi="12.65625">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3854">
+      <stop
+         style="stop-color:#2b91ff;stop-opacity:1;"
+         offset="0"
+         id="stop3856" />
+      <stop
+         style="stop-color:#00356e;stop-opacity:1;"
+         offset="1"
+         id="stop3858" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3854"
+       id="linearGradient3860"
+       x1="404.061"
+       y1="48.270554"
+       x2="404.061"
+       y2="1028.4705"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0321261,0,0,1.0321261,-12.071095,-13.110768)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3854"
+       id="linearGradient3004"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0321261,0,0,1.0321261,-12.071095,-13.110768)"
+       x1="404.061"
+       y1="48.270554"
+       x2="404.061"
+       y2="1028.4705" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3854"
+       id="linearGradient3062"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0408878,0,0,1.0408878,-17.960619,-23.28384)"
+       x1="404.061"
+       y1="48.270554"
+       x2="404.061"
+       y2="1028.4705" />
+    <clipPath
+       id="clipPath3110"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3112"
+         d="M 0,842 0,0 595,0 595,842 0,842 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3102"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3104"
+         d="m 0,718.5 0,-595 595,0 0,595 -595,0 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3094"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3096"
+         d="m 0,718.5 0,-595 595,0 0,595 -595,0 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3086"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3088"
+         d="m 0,718.5 0,-595 595,0 0,595 -595,0 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3076"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3078"
+         d="m 0,718.5 595,0 0,-595 -595,0 0,595 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3070"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3072"
+         d="m 0,718.5 595,0 0,-595 -595,0 0,595 z" />
+    </clipPath>
+    <clipPath
+       id="clipPath3062"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         id="path3064"
+         d="M 0,842 0,0 595,0 595,842 0,842 z" />
+    </clipPath>
+    <filter
+       id="filter3207"
+       inkscape:label="Invert"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       inkscape:menu="Color"
+       inkscape:menu-tooltip="Invert colors"
+       color-interpolation-filters="sRGB">
+      <feColorMatrix
+         id="feColorMatrix3209"
+         type="saturate"
+         values="1"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="feColorMatrix3211"
+         in="fbSourceGraphic"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 " />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.69999999"
+     inkscape:cx="693.96703"
+     inkscape:cy="533.27046"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="1345"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-28.362183)">
+    <path
+       inkscape:connector-curvature="0"
+       d="m 340,380.93 c 71.65,72.98 70.83,190.14 -1.82,262.13 C 265.53,715.04 148.37,714.77 76.05,642.45 3.73,570.13 3.46,452.97 75.44,380.32 147.43,307.67 264.59,306.85 337.57,378.5 L 544,172.07 M 433.5,314.14 567.07,180.57 535.5,149 401.93,282.57"
+       style="fill:none;stroke:#000000;stroke-width:43.70999908;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3207)"
+       id="path3080"
+       transform="matrix(1.4915759,0,0,-1.4915759,67.667832,1161.1934)" />
+    <text
+       xml:space="preserve"
+       style="font-size:398.05130005px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:College;-inkscape-font-specification:College"
+       x="265.21783"
+       y="595.97296"
+       id="text3837"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3839"
+         x="265.21783"
+         y="595.97296">U</tspan></text>
+  </g>
+</svg>

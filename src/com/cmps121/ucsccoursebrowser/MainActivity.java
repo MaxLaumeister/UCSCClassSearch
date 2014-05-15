@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void initListViewSearch() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 1; i <= 3; i++) {
 			Map<String, String> datum = new HashMap<String, String>(2);
 			datum.put("First Line", "First Line " + Integer.toString(i));
 			datum.put("Second Line","Second Line " + Integer.toString(i));
