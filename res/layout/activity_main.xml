@@ -4,4 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.cmps121.ucsccoursebrowser.MainActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.cmps121.ucsccoursebrowser.MainActivity$SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
