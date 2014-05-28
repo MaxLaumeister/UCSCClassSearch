@@ -1,7 +1,7 @@
-Android UCSC Course Browser
+UCSC Class Search for Android
 =============
 
-A Course Browser for Android, created for the CMPS121: Mobile Applications course at University of California, Santa Cruz. This app allows the user to browse course listings at UCSC.
+A course browser for Android, created for the CMPS121: Mobile Applications course at UCSC. This app allows the user to browse course listings at University of California, Santa Cruz.
 
 * Maximillian Laumeister
 * Michael Molina
