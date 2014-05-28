@@ -18,9 +18,9 @@ import android.widget.SimpleAdapter;
 
 public class MainActivity extends ActionBarActivity {
 
-	ListView listViewSearch;
-	List<Map<String, String>> listData = new ArrayList<Map<String, String>>();
-	SimpleAdapter listAdapter;
+	ListView listViewSearch; // The ListView containing the search parameters
+	ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
+	SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,34 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void initListViewSearch() {
-		for (int i = 1; i <= 3; i++) {
-			Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("First Line", "First Line " + Integer.toString(i));
-			datum.put("Second Line","Second Line " + Integer.toString(i));
-			listData.add(datum);
+		final int rows = 9;
+		listData.clear();
+		listData.ensureCapacity(rows);
+		// Initialize list
+		for (int i = 0; i < rows; i++) {
+			listData.add(new HashMap<String, String>());
 		}
+		// List Data (this gets shoved into the listview at the end of onCreate())
+		// None of these are actually "Loading" yet until I get the netcode in. ~Max
+		listData.get(0).put("First Line", "Term ");
+		listData.get(0).put("Second Line","Loading... ");
+		listData.get(1).put("First Line", "Status ");
+		listData.get(1).put("Second Line","Loading... ");
+		listData.get(2).put("First Line", "Subject ");
+		listData.get(2).put("Second Line","Loading... ");
+		listData.get(3).put("First Line", "Course Title Keyword ");
+		listData.get(3).put("Second Line","Loading... ");
+		listData.get(4).put("First Line", "Instructor Last Name ");
+		listData.get(4).put("Second Line","Loading... ");
+		listData.get(5).put("First Line", "General Education ");
+		listData.get(5).put("Second Line","Loading... ");
+		listData.get(6).put("First Line", "Course Units ");
+		listData.get(6).put("Second Line","Loading... ");
+		listData.get(7).put("First Line", "Meeting Days ");
+		listData.get(7).put("Second Line","Loading... ");
+		listData.get(8).put("First Line", "Meeting Times ");
+		listData.get(8).put("Second Line","Loading... ");
+		
 		listAdapter = new SimpleAdapter(this, listData,
 				android.R.layout.simple_list_item_2, 
 				new String[] {"First Line", "Second Line" }, 
