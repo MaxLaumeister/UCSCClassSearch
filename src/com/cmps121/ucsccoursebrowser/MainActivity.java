@@ -2,6 +2,7 @@ package com.cmps121.ucsccoursebrowser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.support.v7.app.ActionBarActivity;
@@ -59,11 +60,17 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void onClickSearchButton(View v) {
+		// TODO: After finishing the HTML parser, move this HTML get call into OnCreate
+		// so that it populates the ListView when the app is loaded, instead of when
+		// the search button is pressed.
 		(new HTMLGetter(getApplicationContext()) {
 			@Override
 			protected void onPostExecute(String result) {
 				Toast.makeText(ctx, "Done", Toast.LENGTH_SHORT).show();
-				Log.d(LOG_TAG, result);
+				HashMap<String, List<String>> parameterOptions = HTMLParser.parseSearchPage(result);
+				Log.d(LOG_TAG, parameterOptions.toString());
+				// TODO: Populate ListView using the contents of parameterOptions
+				// (see HTMLParser.parseSearchPage() for an idea of how these contents are formatted)
 			}
 		}).execute(baseURL);
 	}
