@@ -37,43 +37,19 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void initListViewSearch() {
-		final int rows = 9;
+		final int rows = PisaHTMLModel.SEARCH_PARAMETERS.size();
 		listData.clear();
 		listData.ensureCapacity(rows);
-		// Initialize list
-		for (int i = 0; i < rows; i++) {
-			listData.add(new HashMap<String, String>());
-		}
 		
 		// List Data (this gets shoved into the listview at the end of onCreate())
 		// None of these are actually "Loading" yet until I get the netcode in. ~Max
 		
-		listData.get(0).put("First Line", "Term ");
-		listData.get(0).put("Second Line","Loading... ");
-		
-		listData.get(1).put("First Line", "Status ");
-		listData.get(1).put("Second Line","Loading... ");
-		
-		listData.get(2).put("First Line", "Subject ");
-		listData.get(2).put("Second Line","Loading... ");
-		
-		listData.get(3).put("First Line", "Course Title Keyword ");
-		listData.get(3).put("Second Line","Loading... ");
-		
-		listData.get(4).put("First Line", "Instructor Last Name ");
-		listData.get(4).put("Second Line","Loading... ");
-		
-		listData.get(5).put("First Line", "General Education ");
-		listData.get(5).put("Second Line","Loading... ");
-		
-		listData.get(6).put("First Line", "Course Units ");
-		listData.get(6).put("Second Line","Loading... ");
-		
-		listData.get(7).put("First Line", "Meeting Days ");
-		listData.get(7).put("Second Line","Loading... ");
-		
-		listData.get(8).put("First Line", "Meeting Times ");
-		listData.get(8).put("Second Line","Loading... ");
+		for (SearchParameter parameter : PisaHTMLModel.SEARCH_PARAMETERS) {
+			Map<String, String> el = new HashMap<String, String>();
+			el.put("First Line", parameter.label);
+			el.put("Second Line", "Loading...");
+			listData.add(el);
+		}
 		
 		listAdapter = new SimpleAdapter(this, listData,
 				android.R.layout.simple_list_item_2, 
