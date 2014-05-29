@@ -6,11 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -32,9 +38,15 @@ public class MainActivity extends ActionBarActivity {
 		
 		listViewSearch = (ListView) findViewById(R.id.listViewSearch);
 		initListViewSearch();
-		
-		final Button searchButton = (Button) findViewById(R.id.search_button);
-		Log.d(LOG_TAG, Boolean.toString(searchButton == null));
+		listViewSearch.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+				@SuppressWarnings("unchecked")
+				String value = ((HashMap<String, String>) adapter.getItemAtPosition(position)).get("First Line");
+				new AlertDialog.Builder(v.getContext()).setTitle(value).show();
+			}
+		});
+		listViewSearch.setItemsCanFocus(true);
 	}
 	
 	private void initListViewSearch() {
@@ -93,5 +105,4 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }
