@@ -26,11 +26,6 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new SearchFragment()).commit();
-		}
 		
 		listViewSearch = (ListView) findViewById(R.id.listViewSearch);
 		initListViewSearch();
@@ -44,24 +39,34 @@ public class MainActivity extends ActionBarActivity {
 		for (int i = 0; i < rows; i++) {
 			listData.add(new HashMap<String, String>());
 		}
+		
 		// List Data (this gets shoved into the listview at the end of onCreate())
 		// None of these are actually "Loading" yet until I get the netcode in. ~Max
+		
 		listData.get(0).put("First Line", "Term ");
 		listData.get(0).put("Second Line","Loading... ");
+		
 		listData.get(1).put("First Line", "Status ");
 		listData.get(1).put("Second Line","Loading... ");
+		
 		listData.get(2).put("First Line", "Subject ");
 		listData.get(2).put("Second Line","Loading... ");
+		
 		listData.get(3).put("First Line", "Course Title Keyword ");
 		listData.get(3).put("Second Line","Loading... ");
+		
 		listData.get(4).put("First Line", "Instructor Last Name ");
 		listData.get(4).put("Second Line","Loading... ");
+		
 		listData.get(5).put("First Line", "General Education ");
 		listData.get(5).put("Second Line","Loading... ");
+		
 		listData.get(6).put("First Line", "Course Units ");
 		listData.get(6).put("Second Line","Loading... ");
+		
 		listData.get(7).put("First Line", "Meeting Days ");
 		listData.get(7).put("Second Line","Loading... ");
+		
 		listData.get(8).put("First Line", "Meeting Times ");
 		listData.get(8).put("Second Line","Loading... ");
 		
@@ -74,7 +79,6 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -90,23 +94,6 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class SearchFragment extends Fragment {
-
-		public SearchFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
 	}
 
 }
