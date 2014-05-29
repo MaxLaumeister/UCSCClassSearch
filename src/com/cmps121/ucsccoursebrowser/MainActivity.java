@@ -2,22 +2,24 @@ package com.cmps121.ucsccoursebrowser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+	public static final String LOG_TAG = "com.cmps121.ucsccoursebrowser";
+	protected static final String baseURL = "https://pisa.ucsc.edu/class_search/";
+	
 	ListView listViewSearch; // The ListView containing the search parameters
 	ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
 	SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
@@ -29,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
 		
 		listViewSearch = (ListView) findViewById(R.id.listViewSearch);
 		initListViewSearch();
+		
+		final Button searchButton = (Button) findViewById(R.id.search_button);
+		Log.d(LOG_TAG, Boolean.toString(searchButton == null));
 	}
 	
 	private void initListViewSearch() {
@@ -75,6 +80,16 @@ public class MainActivity extends ActionBarActivity {
 				new String[] {"First Line", "Second Line" }, 
 				new int[] {android.R.id.text1, android.R.id.text2 });
 		listViewSearch.setAdapter(listAdapter);
+	}
+	
+	public void onClickSearchButton(View v) {
+		(new HTMLGetter(getApplicationContext()) {
+			@Override
+			protected void onPostExecute(String result) {
+				Toast.makeText(ctx, "Done", Toast.LENGTH_SHORT).show();
+				Log.d(LOG_TAG, result);
+			}
+		}).execute(baseURL);
 	}
 
 	@Override
