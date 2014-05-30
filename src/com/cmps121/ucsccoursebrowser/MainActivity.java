@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -65,12 +68,30 @@ public class MainActivity extends ActionBarActivity {
 		(new HTMLGetter(getApplicationContext()) {
 			@Override
 			protected void onPostExecute(String result) {
-				HashMap<String, List<String>> parameterOptions = HTMLParser.parseSearchPage(result);
-				Log.d(LOG_TAG, parameterOptions.toString());
+				HTMLParser.parseSearchPage(result);
+				Log.d(LOG_TAG, PisaHTMLModel.SEARCH_PARAMETERS.toString());
 				HTTPProgress.dismiss();
 				listViewSearch.setVisibility(View.VISIBLE);
-				// TODO: Populate ListView using the contents of parameterOptions
-				// (see HTMLParser.parseSearchPage() for an idea of how these contents are formatted)
+				// TODO: Populate ListView using the newly updated "options" field of the search parameters
+				
+				assert(listData.size() == PisaHTMLModel.SEARCH_PARAMETERS.size());
+				for (int i = 0; i < listData.size(); i++) {
+					SearchParameter param = PisaHTMLModel.SEARCH_PARAMETERS.get(i);
+					Map<String, String> listItem = listData.get(i);
+					
+					String defaultOption;
+					if (param.type == FieldType.MULT_CHOICE) {
+						// Multiple choice search parameters should show their default option in the ListView.
+						// TODO: Mark the default option instead of assuming it's at position 0 in the options list
+						String HTMLString = PisaHTMLModel.SEARCH_PARAMETERS.get(i).options.get(0);
+						defaultOption = Html.fromHtml(HTMLString).toString(); // Properly display any HTML entities
+					} else {
+						// Text entry search parameters should not show anything by default in the ListView.
+						defaultOption = "";
+					}
+					listItem.put("Second Line", defaultOption); // Replace line in ListView data
+				}
+				listAdapter.notifyDataSetChanged();
 			}
 		}).execute(baseURL);
 	}

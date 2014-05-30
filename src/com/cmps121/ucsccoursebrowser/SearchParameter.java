@@ -38,4 +38,8 @@ public class SearchParameter {
 		type = t;
 		html_id = id;
 	}
+	
+	public String toString() {
+		return label + ": " + super.toString();
+	}
 }

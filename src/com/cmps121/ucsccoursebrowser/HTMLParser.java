@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
+// Maybe this class should be merged with PisaHTMLModel...
+
 public class HTMLParser {
 	
 	// Takes the HTML of the Class Search Page
@@ -21,23 +23,24 @@ public class HTMLParser {
 	
 	// TODO: Make this function also store and return the option tag's "value" attribute
 	
-	public static HashMap<String, List<String>> parseSearchPage(String html_data) {
+	public static boolean parseSearchPage(String html_data) {
 		
-		HashMap<String, List<String>> result = new HashMap<String, List<String>>();
 		Document doc = Jsoup.parse(html_data);
 		
 		for (SearchParameter param : PisaHTMLModel.SEARCH_PARAMETERS) {
 			if (param.type != FieldType.MULT_CHOICE) continue; // Process only the multiple choice parameters
 			Element select = doc.getElementById(param.html_id);
 			Elements options = select.getElementsByTag("option");
-			List<String> optionsStrings = new ArrayList<String>();
+			ArrayList<String> optionsStrings = new ArrayList<String>();
 			for (Element option : options) {
 				optionsStrings.add(option.html());
 			}
-			result.put(param.label, optionsStrings);
+			// Save the results externally
+			// TODO: param.value = 
+			param.options = optionsStrings;
 		}
 		
-		return result;
+		return true; // Operation success
 	}
 	
 	// Takes the HTML of the Search Results Page
