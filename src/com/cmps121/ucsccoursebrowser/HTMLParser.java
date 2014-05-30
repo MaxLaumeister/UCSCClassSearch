@@ -54,18 +54,36 @@ public class HTMLParser {
 	
 	public static List<Course> parseResultsPage(String html_data) {
 		
+		List<Course> result = new ArrayList<Course>();
+		
 		Document doc = Jsoup.parse(html_data);
 		
 		Element results_tbody = doc.getElementById("results_table").getElementsByTag("tbody").first();
-		ArrayList<String> titles = new ArrayList<String>();
 		Elements t_rows = results_tbody.getElementsByTag("tr");
 		for (Element t_row : t_rows) {
-			Element td_title = t_row.getElementsByTag("td").get(1); // Title is the second column in the table
-			titles.add(td_title.html());
+			Elements tds = t_row.getElementsByTag("td");
+			
+			// Time for some dom traversal
+			
+			final String title = tds.get(1).html();
+			final String time = tds.get(4).html() + " " + tds.get(5).html();
+			final String instructor = tds.get(6).html();
+			final String status = tds.get(7).getElementsByTag("img").get(0).attr("alt");
+			final int capacity = Integer.parseInt(tds.get(8).html());
+			final int enrollment_total = Integer.parseInt(tds.get(9).html()); 
+			final int available_seats = Integer.parseInt(tds.get(10).html()); 
+			final String type = tds.get(3).html();
+			
+			// The moment you've all been waiting for...
+			
+			Course course = new Course(title, time, instructor, status, capacity, enrollment_total, available_seats, type);
+			
+			// And add it into the list
+			
+			result.add(course);
 		}
-		Log.d(LOG_TAG, titles.toString());
 		
-		return null; // TODO: Implementation
+		return result; // TODO: Implementation
 	}
 	
 	public static CourseDetail parseDetailPage(String html_data) {

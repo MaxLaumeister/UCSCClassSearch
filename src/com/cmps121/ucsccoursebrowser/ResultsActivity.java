@@ -34,7 +34,7 @@ public class ResultsActivity extends ActionBarActivity {
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
 	ListView listViewResults; // The ListView containing the search results
-	ArrayList<Course> listData = new ArrayList<Course>(); // The underlying list for the above ListView
+	List<Course> listData; // The underlying list for the above ListView
 	ResultsAdapter listAdapter; // The adapter that links listData to ListViewSearch
 	
 	@SuppressWarnings("unchecked")
@@ -53,6 +53,8 @@ public class ResultsActivity extends ActionBarActivity {
 				R.layout.search_result_listview_item, 
 				new String[] {"First Line", "Second Line" }, 
 				new int[] {android.R.id.text1, android.R.id.text2 });
+		
+		listViewResults.setAdapter(listAdapter);
 		
 		// Send the post request that will populate the listView
 		
@@ -105,8 +107,9 @@ public class ResultsActivity extends ActionBarActivity {
 			@Override
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
-				List<Course> resultsList = HTMLParser.parseResultsPage(result);
-				//Log.d(LOG_TAG, resultsList.toString());
+				listData.addAll(HTMLParser.parseResultsPage(result));
+				listAdapter.notifyDataSetChanged();
+				Log.d(LOG_TAG, listData.toString());
 			}
 		}).execute(post);
 	}
@@ -143,25 +146,31 @@ public class ResultsActivity extends ActionBarActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
-		    if (convertView == null) {
-		    	LayoutInflater vi = (LayoutInflater) getApplicationContext()
+		    if (v == null) {
+		    	LayoutInflater vi = (LayoutInflater) parent.getContext()
 		    			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		    	convertView = vi.inflate(R.layout.search_result_listview_item, null);
+		    	v = vi.inflate(R.layout.search_result_listview_item, null);
 		    }
 		    
 		    Course course = listData.get(position);
 		    
-		    TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
+		    Log.d(LOG_TAG, v.toString());
+		    Log.d(LOG_TAG, course.toString());
+		    Log.d(LOG_TAG, course.title);
+		    Log.d(LOG_TAG, course.time);
+		    Log.d(LOG_TAG, course.instructor);
+		    
+		    TextView text1 = (TextView) v.findViewById(R.id.textView1);
 		    if (text1 != null) {
 		    	text1.setText(course.title);
 		    }
 		    
-		    TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
+		    TextView text2 = (TextView) v.findViewById(R.id.textView2);
 		    if (text2 != null) {
 		    	text2.setText(course.time);
 		    }
 		    
-		    TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
+		    TextView text3 = (TextView) v.findViewById(R.id.textView3);
 		    if (text3 != null) {
 		    	text3.setText(course.instructor);
 		    }

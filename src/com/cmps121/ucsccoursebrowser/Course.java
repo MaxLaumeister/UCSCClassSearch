@@ -18,10 +18,9 @@ public class Course {
 	final int enrollment_total; 
 	final int available_seats; 
 	final String type; // LEC, LAB, SEM, etc.
-	final int credits; 
 	
 	public Course(String title, String time, String instructor, String status,
-					int capacity, int enrollment_total, int available_seats, String type, int credits) {
+					int capacity, int enrollment_total, int available_seats, String type) {
 		
 		this.title = title;
 		this.time = time;
@@ -31,7 +30,6 @@ public class Course {
 		this.enrollment_total = enrollment_total;
 		this.available_seats = available_seats;
 		this.type = type;
-		this.credits = credits;
 		
 	}
 	
