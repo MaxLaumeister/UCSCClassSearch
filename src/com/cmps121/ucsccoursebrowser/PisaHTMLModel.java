@@ -1,7 +1,5 @@
 package com.cmps121.ucsccoursebrowser;
 
-import java.util.ArrayList;
-
 // The PisaHTMLModel class acts as a global data structure, a kind of "database" for storing
 // each search parameter (which each include a label, info about how to display it to the user,
 // and the HTML ID that the HTMLGetter needs to look for when it parses the Pisa search page.

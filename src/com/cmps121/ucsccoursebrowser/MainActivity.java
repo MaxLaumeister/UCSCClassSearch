@@ -58,14 +58,17 @@ public class MainActivity extends ActionBarActivity {
 				if (param.type == FieldType.MULT_CHOICE) {
 					
 					// Type juggling
-					List<String> optionsList = param.options;
-					final String[] optionsArray = optionsList.toArray(new String[0]);
+					List<Option> optionsList = param.options;
+					final String[] optionsTitlesArray = new String[optionsList.size()];
+					for (int i = 0; i < optionsTitlesArray.length; i++) {
+						optionsTitlesArray[i] = optionsList.get(i).title;
+					}
 					
 					new AlertDialog.Builder(v.getContext()).setTitle(title)
 					.setTitle(title)
-					.setItems(optionsArray, new DialogInterface.OnClickListener() {
+					.setItems(optionsTitlesArray, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
-							listItem.put("Second Line", optionsArray[whichButton]);
+							listItem.put("Second Line", optionsTitlesArray[whichButton]);
 							listAdapter.notifyDataSetChanged();
 						}
 					})
@@ -102,11 +105,15 @@ public class MainActivity extends ActionBarActivity {
 					SearchParameter param = entry.getValue();
 					Map<String, String> listItem = listData.get(i);
 					
+					// The text in the ListView should match the key in the HashMap,
+					// since that's what the HashMap is keyed on.
+					assert(listItem.get("First Line") == entry.getKey());
+					
 					String defaultOption;
 					if (param.type == FieldType.MULT_CHOICE) {
 						// Multiple choice search parameters should show their default option in the ListView.
 						// TODO: Mark the default option instead of assuming it's at position 0 in the options list
-						String HTMLString = param.options.get(0);
+						String HTMLString = param.options.get(0).title;
 						defaultOption = Html.fromHtml(HTMLString).toString(); // Properly display any HTML entities
 					} else {
 						// Text entry search parameters should not show anything by default in the ListView.
@@ -125,12 +132,8 @@ public class MainActivity extends ActionBarActivity {
 		listData.clear();
 		listData.ensureCapacity(rows);
 		
-		// List Data (this gets shoved into the listview at the end of onCreate())
-		// None of these are actually "Loading" yet until I get the netcode in. ~Max
-		
 		for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {
 			String parameter_label = entry.getKey();
-			SearchParameter parameter = entry.getValue();
 			Map<String, String> el = new HashMap<String, String>();
 			el.put("First Line", parameter_label);
 			el.put("Second Line", "Loading...");

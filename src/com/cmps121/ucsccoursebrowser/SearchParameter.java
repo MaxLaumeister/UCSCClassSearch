@@ -20,15 +20,10 @@ public class SearchParameter {
 	// The id attribute of the HTML tag for this parameter in the class search page source.
 	public final String html_id;
 	
-	// The value attribute of the HTML option tag, e.g. for label "Computer Science",
-	// in the Pisa search page HTML source, the value would be "CMPS"
-	// This starts as null and gets populated when the HTMLGetter retrieves the search page
-	public String value;
-	
 	// The options for each search parameter - e.g. for "Term" the options would be
 	// ["2014 Fall Quarter", "2014 Summer Quarter", "2014 Spring Quarter", etc.]
 	// This starts as null and gets populated when the HTMLGetter retrieves the search page
-	public ArrayList<String> options;
+	public ArrayList<Option> options;
 	
 	public SearchParameter(FieldType t, String id) {
 		type = t;
