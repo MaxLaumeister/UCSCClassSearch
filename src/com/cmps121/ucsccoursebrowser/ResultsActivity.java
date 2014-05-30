@@ -15,6 +15,7 @@ import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,6 +63,17 @@ public class ResultsActivity extends ActionBarActivity {
 	}
 	
 	private void sendSearchPost() {
+		
+		// Block the screen with a ProgressDialog, which gets dismissed
+		// after the HTML request for the class search page returns.
+		
+		// TODO: Make it cancellable but with a retry button behind it,
+		// so if user loses connection it's possible for them to restart
+		// the HTML request.
+		
+		final ProgressDialog HTTPProgress = ProgressDialog.show(ResultsActivity.this, "Searching ...", "Please wait ...", true, false);
+		listViewResults.setVisibility(View.INVISIBLE);
+		
 		// Get intent extras data
 		
 		Intent intent = getIntent();
@@ -109,7 +121,8 @@ public class ResultsActivity extends ActionBarActivity {
 				// TODO: Parse this in the Async thread instead of the UI thread
 				listData.addAll(HTMLParser.parseResultsPage(result));
 				listAdapter.notifyDataSetChanged();
-				Log.d(LOG_TAG, listData.toString());
+				HTTPProgress.dismiss();
+				listViewResults.setVisibility(View.VISIBLE);
 			}
 		}).execute(post);
 	}
@@ -153,12 +166,6 @@ public class ResultsActivity extends ActionBarActivity {
 		    }
 		    
 		    Course course = listData.get(position);
-		    
-		    Log.d(LOG_TAG, v.toString());
-		    Log.d(LOG_TAG, course.toString());
-		    Log.d(LOG_TAG, course.title);
-		    Log.d(LOG_TAG, course.time);
-		    Log.d(LOG_TAG, course.instructor);
 		    
 		    TextView text1 = (TextView) v.findViewById(R.id.textView1);
 		    if (text1 != null) {
