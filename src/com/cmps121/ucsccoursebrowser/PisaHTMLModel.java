@@ -35,4 +35,7 @@ public class PisaHTMLModel {
 		s.put("Meeting Days",         new SearchParameter(FieldType.MULT_CHOICE, "Days"));
 		s.put("Meeting Times",        new SearchParameter(FieldType.MULT_CHOICE, "Times"));
 	}
+	
+	public static final String baseURL = "https://pisa.ucsc.edu/class_search/";
+	public static final String resultsPagePath = "index.php";
 }

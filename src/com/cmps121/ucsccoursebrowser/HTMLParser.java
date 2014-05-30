@@ -21,13 +21,8 @@ public class HTMLParser {
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
-	// Takes the HTML of the Class Search Page
-	// Returns a HashMap that looks like this:
-	// ("Term", ["2014 Fall Quarter", "2014 Summer Quarter", "2014 Spring Quarter", etc.])
-	// ("Status", ["All Classes", "Open Classes"])
-	// ("Subject", ["All Subjects", "American Studies", "Anthropology", etc.])
-	
-	// TODO: Make this function also store and return the option tag's "value" attribute
+	// Takes the HTML of the Class Search Page, and updates the SearchParameters in PisaHTMLModel
+	// to reflect the options available on the search page.
 	
 	public static boolean parseSearchPage(String html_data) {
 		
