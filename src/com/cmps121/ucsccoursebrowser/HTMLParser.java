@@ -70,6 +70,10 @@ public class HTMLParser {
 		}
 		Log.d(LOG_TAG, titles.toString());
 		
-		return new ArrayList<Course>(); // TODO: Implementation
+		return null; // TODO: Implementation
+	}
+	
+	public static CourseDetail parseDetailPage(String html_data) {
+		return null; // TODO: Implementation
 	}
 }
