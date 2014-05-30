@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -36,6 +38,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		// Initialize the ListView, set its onItemClick to bring up a dialog for user data entry
+		
 		listViewSearch = (ListView) findViewById(R.id.listViewSearch);
 		initListViewSearch();
 		listViewSearch.setOnItemClickListener(new OnItemClickListener() {
@@ -47,6 +51,28 @@ public class MainActivity extends ActionBarActivity {
 			}
 		});
 		listViewSearch.setItemsCanFocus(true);
+		
+		// Block the screen with a ProgressDialog, which gets dismissed
+		// after the HTML request for the class search page returns.
+		
+		// TODO: Make it cancellable but with a retry button behind it,
+		// so if user loses connection it's possible for them to restart
+		// the HTML request.
+		
+		final ProgressDialog HTTPProgress = ProgressDialog.show(MainActivity.this, "Loading Course Data ...", "Please wait ...", true, false);
+		listViewSearch.setVisibility(View.INVISIBLE);
+		
+		(new HTMLGetter(getApplicationContext()) {
+			@Override
+			protected void onPostExecute(String result) {
+				HashMap<String, List<String>> parameterOptions = HTMLParser.parseSearchPage(result);
+				Log.d(LOG_TAG, parameterOptions.toString());
+				HTTPProgress.dismiss();
+				listViewSearch.setVisibility(View.VISIBLE);
+				// TODO: Populate ListView using the contents of parameterOptions
+				// (see HTMLParser.parseSearchPage() for an idea of how these contents are formatted)
+			}
+		}).execute(baseURL);
 	}
 	
 	private void initListViewSearch() {
@@ -72,19 +98,8 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void onClickSearchButton(View v) {
-		// TODO: After finishing the HTML parser, move this HTML get call into OnCreate
-		// so that it populates the ListView when the app is loaded, instead of when
-		// the search button is pressed.
-		(new HTMLGetter(getApplicationContext()) {
-			@Override
-			protected void onPostExecute(String result) {
-				Toast.makeText(ctx, "Done", Toast.LENGTH_SHORT).show();
-				HashMap<String, List<String>> parameterOptions = HTMLParser.parseSearchPage(result);
-				Log.d(LOG_TAG, parameterOptions.toString());
-				// TODO: Populate ListView using the contents of parameterOptions
-				// (see HTMLParser.parseSearchPage() for an idea of how these contents are formatted)
-			}
-		}).execute(baseURL);
+		// TODO: This should use data from the ListView and from PisaHTMLModel
+		// to do an HTML post to the class search page, performing the search.
 	}
 
 	@Override
