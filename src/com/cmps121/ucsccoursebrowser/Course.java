@@ -5,4 +5,31 @@ package com.cmps121.ucsccoursebrowser;
 
 public class Course {
 
+	//first thing is to declare the variable for each class. 
+	
+	String title; 
+	String time; 
+	String professor; 
+	String status; 
+	String avalible; 
+	String capacity; 
+	String taken; 
+	String wlCapacity; 
+	String wlTotal; 
+	String credits; 
+	String genEds; 
+	String description; 
+	
+	
+	public boolean isFull(){
+		//this function will check to see if the class is full. 
+		//if the class is full it will display an icon indicating the class is full. 
+		return false; 
+	}
+	
+	public boolean wlFull(){
+		//this function will check to see if the waitlist capacity is at or beyond capacity. 
+		return false; 
+	}
+	
 }
