@@ -24,11 +24,17 @@ public class Course {
 	public boolean isFull(){
 		//this function will check to see if the class is full. 
 		//if the class is full it will display an icon indicating the class is full. 
+		if(taken.compareTo(capacity)>0){
+			return true; 
+		}
 		return false; 
 	}
 	
 	public boolean wlFull(){
-		//this function will check to see if the waitlist capacity is at or beyond capacity. 
+		//this function will check to see if the waitlist capacity is at or beyond capacity.
+		if(wlTotal.compareTo(wlCapacity) > 0 ){
+			return true; 
+		}
 		return false; 
 	}
 	
