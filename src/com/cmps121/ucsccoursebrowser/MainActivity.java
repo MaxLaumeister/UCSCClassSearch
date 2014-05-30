@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.methods.HttpPost;
+
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
 import android.support.v7.app.ActionBarActivity;
@@ -124,7 +126,7 @@ public class MainActivity extends ActionBarActivity {
 				}
 				listAdapter.notifyDataSetChanged();
 			}
-		}).execute(baseURL);
+		}).execute(new HttpPost(baseURL));
 	}
 	
 	private void initListViewSearch() {

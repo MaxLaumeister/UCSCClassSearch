@@ -14,7 +14,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public abstract class HTMLGetter extends AsyncTask<String, Void, String>{
+public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
@@ -24,15 +24,15 @@ public abstract class HTMLGetter extends AsyncTask<String, Void, String>{
 		ctx = context;
 	}
 	
-	// This takes one URL, and returns the String representing the HTML retrieved.
+	// doInBackground(HttpPost request):
+	// Returns the String representing the HTML retrieved in response to the post data.
+	
 	@Override
-	protected String doInBackground(String... urls) {
-		if (urls.length != 1) return ""; // TODO: Make this an exception
-		Log.i(LOG_TAG, "Getting HTML");
-		DefaultHttpClient   httpclient = new DefaultHttpClient(new BasicHttpParams());
-		HttpPost httppost = new HttpPost(urls[0]);
-		// Depends on your web service
-		httppost.setHeader("Content-type", "application/json");
+	protected String doInBackground(HttpPost... httppostArr) {
+		assert(httppostArr.length == 1);
+		DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+		HttpPost httppost = httppostArr[0];
+		httppost.setHeader("Content-type", "application/x-www-form-urlencoded");
 
 		InputStream inputStream = null;
 		String result = null;
