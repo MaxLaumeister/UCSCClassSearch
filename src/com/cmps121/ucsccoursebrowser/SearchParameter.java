@@ -20,14 +20,19 @@ public class SearchParameter {
 	// The id attribute of the HTML tag for this parameter in the class search page source.
 	public final String html_id;
 	
+	// The name attribute of the HTML tag for this parameter in the class search page source.
+	// This starts out null and gets populated when the HTMLGetter retrieves the search page.
+	public String html_name;
+	
 	// The options for each search parameter. The key is the title, the value is the 
 	// HTML "value" attribute of the option tag, e.g. for "Term" the options would be
 	// [["2014 Fall Quarter", "2148"], ["2014 Summer Quarter", "2144"], ...]
-	// This starts out empty and gets populated when the HTMLGetter retrieves the search page
+	// This starts out empty and gets populated when the HTMLGetter retrieves the search page.
 	public LinkedHashMap<String, String> options;
 	
 	public SearchParameter(FieldType t, String id) {
 		type = t;
 		html_id = id;
+		html_name = null;
 	}
 }

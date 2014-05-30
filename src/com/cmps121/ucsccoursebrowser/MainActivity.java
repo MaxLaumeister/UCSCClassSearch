@@ -1,11 +1,15 @@
 package com.cmps121.ucsccoursebrowser;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
@@ -35,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
 	public static final String LOG_TAG = "com.cmps121.ucsccoursebrowser";
 	protected static final String baseURL = "https://pisa.ucsc.edu/class_search/";
+	protected static final String resultsPagePath = "index.php";
 	
 	ListView listViewSearch; // The ListView containing the search parameters
 	ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
@@ -98,7 +103,6 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			protected void onPostExecute(String result) {
 				HTMLParser.parseSearchPage(result); // TODO: Parse this in the Async thread instead of the UI thread
-				Log.d(LOG_TAG, PisaHTMLModel.SEARCH_PARAMETERS.toString());
 				HTTPProgress.dismiss();
 				listViewSearch.setVisibility(View.VISIBLE);
 				// TODO: Populate ListView using the newly updated "options" field of the search parameters
@@ -152,8 +156,47 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void onClickSearchButton(View v) {
-		// TODO: This should use data from the ListView and from PisaHTMLModel
-		// to do an HTML post to the class search page, performing the search.
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(listData.size());
+		
+		// Get name-value pairs for the post request
+		
+		nameValuePairs.add(new BasicNameValuePair("action", "results"));
+		for (Map<String, String> listItem : listData) {
+			String search_parameter_title = listItem.get("First Line");
+			String selected_option_title = listItem.get("Second Line");
+			
+			SearchParameter param = PisaHTMLModel.SEARCH_PARAMETERS.get(search_parameter_title);
+			String select_name = param.html_name;
+			if (param.type == FieldType.MULT_CHOICE) {
+				String selected_option_value = param.options.get(selected_option_title);
+				nameValuePairs.add(new BasicNameValuePair(select_name, selected_option_value));
+			} else if (param.type == FieldType.TEXT_ENTRY) {
+				nameValuePairs.add(new BasicNameValuePair(select_name, selected_option_title));
+			}
+		}
+		
+		// Construct the HTTP Post request
+		
+		String postURL = baseURL + resultsPagePath;
+		HttpPost post = new HttpPost(postURL);
+		post.setHeader("Content-type", "application/x-www-form-urlencoded");
+		try {
+			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		} catch (UnsupportedEncodingException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Send the HTTP Post request
+		
+		(new HTMLGetter(getApplicationContext()) {
+			@Override
+			protected void onPostExecute(String result) {
+				// TODO: Parse this in the Async thread instead of the UI thread
+				List<Course> resultsList = HTMLParser.parseResultsPage(result);
+				Log.d(LOG_TAG, resultsList.toString());
+			}
+		}).execute(post);
 	}
 
 	@Override
