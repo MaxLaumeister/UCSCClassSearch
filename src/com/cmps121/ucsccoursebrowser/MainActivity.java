@@ -10,8 +10,10 @@ import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -49,8 +51,28 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
 				@SuppressWarnings("unchecked")
-				String value = ((HashMap<String, String>) adapter.getItemAtPosition(position)).get("First Line");
-				new AlertDialog.Builder(v.getContext()).setTitle(value).show();
+				final HashMap<String, String> listItem = ((HashMap<String, String>) adapter.getItemAtPosition(position));
+				final String title = listItem.get("First Line");
+				final SearchParameter param = PisaHTMLModel.SEARCH_PARAMETERS.get(title);
+				
+				if (param.type == FieldType.MULT_CHOICE) {
+					
+					// Type juggling
+					List<String> optionsList = param.options;
+					final String[] optionsArray = optionsList.toArray(new String[0]);
+					
+					new AlertDialog.Builder(v.getContext()).setTitle(title)
+					.setTitle(title)
+					.setItems(optionsArray, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							listItem.put("Second Line", optionsArray[whichButton]);
+							listAdapter.notifyDataSetChanged();
+						}
+					})
+					.show();
+				} else if (param.type == FieldType.TEXT_ENTRY) {
+					// TODO: Show a text entry dialog
+				}
 			}
 		});
 		listViewSearch.setItemsCanFocus(true);
@@ -68,28 +90,30 @@ public class MainActivity extends ActionBarActivity {
 		(new HTMLGetter(getApplicationContext()) {
 			@Override
 			protected void onPostExecute(String result) {
-				HTMLParser.parseSearchPage(result);
+				HTMLParser.parseSearchPage(result); // TODO: Parse this in the Async thread instead of the UI thread
 				Log.d(LOG_TAG, PisaHTMLModel.SEARCH_PARAMETERS.toString());
 				HTTPProgress.dismiss();
 				listViewSearch.setVisibility(View.VISIBLE);
 				// TODO: Populate ListView using the newly updated "options" field of the search parameters
 				
 				assert(listData.size() == PisaHTMLModel.SEARCH_PARAMETERS.size());
-				for (int i = 0; i < listData.size(); i++) {
-					SearchParameter param = PisaHTMLModel.SEARCH_PARAMETERS.get(i);
+				int i = 0;
+				for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {
+					SearchParameter param = entry.getValue();
 					Map<String, String> listItem = listData.get(i);
 					
 					String defaultOption;
 					if (param.type == FieldType.MULT_CHOICE) {
 						// Multiple choice search parameters should show their default option in the ListView.
 						// TODO: Mark the default option instead of assuming it's at position 0 in the options list
-						String HTMLString = PisaHTMLModel.SEARCH_PARAMETERS.get(i).options.get(0);
+						String HTMLString = param.options.get(0);
 						defaultOption = Html.fromHtml(HTMLString).toString(); // Properly display any HTML entities
 					} else {
 						// Text entry search parameters should not show anything by default in the ListView.
 						defaultOption = "";
 					}
 					listItem.put("Second Line", defaultOption); // Replace line in ListView data
+					i++;
 				}
 				listAdapter.notifyDataSetChanged();
 			}
@@ -104,9 +128,11 @@ public class MainActivity extends ActionBarActivity {
 		// List Data (this gets shoved into the listview at the end of onCreate())
 		// None of these are actually "Loading" yet until I get the netcode in. ~Max
 		
-		for (SearchParameter parameter : PisaHTMLModel.SEARCH_PARAMETERS) {
+		for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {
+			String parameter_label = entry.getKey();
+			SearchParameter parameter = entry.getValue();
 			Map<String, String> el = new HashMap<String, String>();
-			el.put("First Line", parameter.label);
+			el.put("First Line", parameter_label);
 			el.put("Second Line", "Loading...");
 			listData.add(el);
 		}

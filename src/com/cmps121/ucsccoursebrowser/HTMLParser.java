@@ -3,11 +3,14 @@ package com.cmps121.ucsccoursebrowser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import android.text.Html;
 
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
@@ -27,13 +30,14 @@ public class HTMLParser {
 		
 		Document doc = Jsoup.parse(html_data);
 		
-		for (SearchParameter param : PisaHTMLModel.SEARCH_PARAMETERS) {
+		for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {
+			SearchParameter param = entry.getValue();
 			if (param.type != FieldType.MULT_CHOICE) continue; // Process only the multiple choice parameters
 			Element select = doc.getElementById(param.html_id);
 			Elements options = select.getElementsByTag("option");
 			ArrayList<String> optionsStrings = new ArrayList<String>();
 			for (Element option : options) {
-				optionsStrings.add(option.html());
+				optionsStrings.add(Html.fromHtml(option.html()).toString());
 			}
 			// Save the results externally
 			// TODO: param.value = 

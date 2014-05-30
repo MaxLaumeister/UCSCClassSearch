@@ -13,9 +13,6 @@ public class SearchParameter {
 		TEXT_ENTRY
 	}
 	
-	// The name of this search parameter as presented in the Main Search Activity
-	public final String label;
-	
 	// Whether for this parameter the user chooses from a multiple choice list (such as for subject)
 	// or whether they enter a phrase into a text entry box.
 	public final FieldType type;
@@ -33,13 +30,8 @@ public class SearchParameter {
 	// This starts as null and gets populated when the HTMLGetter retrieves the search page
 	public ArrayList<String> options;
 	
-	public SearchParameter(String lbl, FieldType t, String id) {
-		label = lbl;
+	public SearchParameter(FieldType t, String id) {
 		type = t;
 		html_id = id;
-	}
-	
-	public String toString() {
-		return label + ": " + super.toString();
 	}
 }

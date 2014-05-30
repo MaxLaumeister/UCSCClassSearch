@@ -6,6 +6,8 @@ import java.util.ArrayList;
 // each search parameter (which each include a label, info about how to display it to the user,
 // and the HTML ID that the HTMLGetter needs to look for when it parses the Pisa search page.
 
+import java.util.LinkedHashMap;
+
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
 public class PisaHTMLModel {
@@ -21,18 +23,18 @@ public class PisaHTMLModel {
 	// the class search page, and such parsing would not be robust to future changes
 	// in the search page HTML.
 	
-	public static final ArrayList<SearchParameter> SEARCH_PARAMETERS = new ArrayList<SearchParameter>();
+	public static final LinkedHashMap<String, SearchParameter> SEARCH_PARAMETERS = new LinkedHashMap<String, SearchParameter>();
 	static {
-		ArrayList<SearchParameter> s = SEARCH_PARAMETERS;
-		//                        #label                  #type                  #html_id
-		s.add(new SearchParameter("Term",                 FieldType.MULT_CHOICE, "term_dropdown"));
-		s.add(new SearchParameter("Status",               FieldType.MULT_CHOICE, "reg_status"));
-		s.add(new SearchParameter("Subject",              FieldType.MULT_CHOICE, "subject"));
-		s.add(new SearchParameter("Course Title Keyword", FieldType.TEXT_ENTRY,  "title"));
-		s.add(new SearchParameter("Instructor Last Name", FieldType.TEXT_ENTRY,  "instructor"));
-		s.add(new SearchParameter("General Education",    FieldType.MULT_CHOICE, "ge"));
-		s.add(new SearchParameter("Course Units",         FieldType.TEXT_ENTRY,  "crse_units_exact"));
-		s.add(new SearchParameter("Meeting Days",         FieldType.MULT_CHOICE, "Days"));
-		s.add(new SearchParameter("Meeting Times",        FieldType.MULT_CHOICE, "Times"));
+		LinkedHashMap<String, SearchParameter> s = SEARCH_PARAMETERS;
+		//    #label                                      #type                  #html_id
+		s.put("Term",                 new SearchParameter(FieldType.MULT_CHOICE, "term_dropdown"));
+		s.put("Status",               new SearchParameter(FieldType.MULT_CHOICE, "reg_status"));
+		s.put("Subject",              new SearchParameter(FieldType.MULT_CHOICE, "subject"));
+		s.put("Course Title Keyword", new SearchParameter(FieldType.TEXT_ENTRY,  "title"));
+		s.put("Instructor Last Name", new SearchParameter(FieldType.TEXT_ENTRY,  "instructor"));
+		s.put("General Education",    new SearchParameter(FieldType.MULT_CHOICE, "ge"));
+		s.put("Course Units",         new SearchParameter(FieldType.TEXT_ENTRY,  "crse_units_exact"));
+		s.put("Meeting Days",         new SearchParameter(FieldType.MULT_CHOICE, "Days"));
+		s.put("Meeting Times",        new SearchParameter(FieldType.MULT_CHOICE, "Times"));
 	}
 }
