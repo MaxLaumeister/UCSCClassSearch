@@ -1,6 +1,7 @@
 package com.cmps121.ucsccoursebrowser;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +35,11 @@ public class HTMLParser {
 			if (param.type != FieldType.MULT_CHOICE) continue; // Process only the multiple choice parameters
 			Element select = doc.getElementById(param.html_id);
 			Elements options = select.getElementsByTag("option");
-			ArrayList<Option> optionsObjects = new ArrayList<Option>();
+			LinkedHashMap<String, String> optionsObjects = new LinkedHashMap<String, String>();
 			for (Element option : options) {
 				String title = Html.fromHtml(option.html()).toString();
 				String value = option.attr("value");
-				optionsObjects.add(new Option(title, value));
+				optionsObjects.put(title, value);
 			}
 			// Save the results externally
 			param.options = optionsObjects;

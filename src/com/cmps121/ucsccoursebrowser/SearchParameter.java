@@ -1,6 +1,6 @@
 package com.cmps121.ucsccoursebrowser;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 // The SearchParameter class describes a single search parameter, for example "Term", "Subject", or "Instructor".
 // The complete, global list of these gets initialized by and stored in PisaHTMLModel before run time. When the app is run,
@@ -20,10 +20,11 @@ public class SearchParameter {
 	// The id attribute of the HTML tag for this parameter in the class search page source.
 	public final String html_id;
 	
-	// The options for each search parameter - e.g. for "Term" the options would be
-	// ["2014 Fall Quarter", "2014 Summer Quarter", "2014 Spring Quarter", etc.]
-	// This starts as null and gets populated when the HTMLGetter retrieves the search page
-	public ArrayList<Option> options;
+	// The options for each search parameter. The key is the title, the value is the 
+	// HTML "value" attribute of the option tag, e.g. for "Term" the options would be
+	// [["2014 Fall Quarter", "2148"], ["2014 Summer Quarter", "2144"], ...]
+	// This starts out empty and gets populated when the HTMLGetter retrieves the search page
+	public LinkedHashMap<String, String> options;
 	
 	public SearchParameter(FieldType t, String id) {
 		type = t;

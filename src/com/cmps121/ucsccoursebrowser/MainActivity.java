@@ -60,10 +60,12 @@ public class MainActivity extends ActionBarActivity {
 				if (param.type == FieldType.MULT_CHOICE) {
 					
 					// Type juggling
-					List<Option> optionsList = param.options;
+					HashMap<String, String> optionsList = param.options;
 					final String[] optionsTitlesArray = new String[optionsList.size()];
-					for (int i = 0; i < optionsTitlesArray.length; i++) {
-						optionsTitlesArray[i] = optionsList.get(i).title;
+					int i = 0;
+					for (Map.Entry<String, String> entry : optionsList.entrySet()) {
+						optionsTitlesArray[i] = entry.getKey();
+						i++;
 					}
 					
 					new AlertDialog.Builder(v.getContext()).setTitle(title)
@@ -114,8 +116,8 @@ public class MainActivity extends ActionBarActivity {
 					String defaultOption;
 					if (param.type == FieldType.MULT_CHOICE) {
 						// Multiple choice search parameters should show their default option in the ListView.
-						// TODO: Mark the default option instead of assuming it's at position 0 in the options list
-						String HTMLString = param.options.get(0).title;
+						// TODO: Mark the default option instead of assuming it's at position 0 in the options LinkedHashMap
+						String HTMLString = param.options.entrySet().iterator().next().getKey(); // Position 0 in the LinkedHashMap
 						defaultOption = Html.fromHtml(HTMLString).toString(); // Properly display any HTML entities
 					} else {
 						// Text entry search parameters should not show anything by default in the ListView.
