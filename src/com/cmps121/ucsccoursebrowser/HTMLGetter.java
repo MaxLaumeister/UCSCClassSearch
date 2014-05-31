@@ -18,7 +18,7 @@ public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
-	private DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+	private static DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 	
 	protected Context ctx;
 	

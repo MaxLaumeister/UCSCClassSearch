@@ -42,9 +42,9 @@ public class MainActivity extends ActionBarActivity {
 
 	public static final String LOG_TAG = "com.cmps121.ucsccoursebrowser";
 	
-	private ListView listViewSearch; // The ListView containing the search parameters
-	private ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
-	private SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
+	public ListView listViewSearch; // The ListView containing the search parameters
+	public ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
+	public SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

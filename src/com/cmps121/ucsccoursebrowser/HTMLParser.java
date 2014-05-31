@@ -60,8 +60,6 @@ public class HTMLParser {
 		try { 
 			Document doc = Jsoup.parse(html_data);
 			
-			Log.d(LOG_TAG, doc.getElementById("results_table").html());
-			
 			Element results_tbody = doc.getElementById("results_table").getElementsByTag("tbody").first();
 			Elements t_rows = results_tbody.getElementsByTag("tr");
 			
@@ -92,8 +90,8 @@ public class HTMLParser {
 				
 				result.add(course);
 			}
-		} catch (IndexOutOfBoundsException e) {
-			Log.e("Error Parsing HTML", "exception", e);
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+			Log.e(LOG_TAG, "Error Parsing HTML", e);
 			return new ArrayList<Course>();
 		}
 		return result;

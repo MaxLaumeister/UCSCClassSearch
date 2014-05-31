@@ -145,6 +145,12 @@ public class ResultsActivity extends ActionBarActivity {
 		List<NameValuePair> nextPageNameValuePairs = new ArrayList<NameValuePair>();
 		nextPageNameValuePairs.add(new BasicNameValuePair("action", "next"));
 		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", "25")); // How many more results we want
+		try {
+			post.setEntity(new UrlEncodedFormEntity(nextPageNameValuePairs));
+		} catch (UnsupportedEncodingException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*listViewResults.setOnScrollListener(new OnScrollListener() {
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
