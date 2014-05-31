@@ -18,6 +18,8 @@ public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
+	private DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+	
 	protected Context ctx;
 	
 	public HTMLGetter(Context context) {
@@ -30,14 +32,13 @@ public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 	@Override
 	protected String doInBackground(HttpPost... httppostArr) {
 		assert(httppostArr.length == 1);
-		DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 		HttpPost httppost = httppostArr[0];
 		httppost.setHeader("Content-type", "application/x-www-form-urlencoded");
 
 		InputStream inputStream = null;
 		String result = null;
 		try {
-		    HttpResponse response = httpclient.execute(httppost);           
+		    HttpResponse response = httpclient.execute(httppost);
 		    HttpEntity entity = response.getEntity();
 
 		    inputStream = entity.getContent();

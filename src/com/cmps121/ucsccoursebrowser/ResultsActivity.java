@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -37,6 +39,8 @@ public class ResultsActivity extends ActionBarActivity {
 	ListView listViewResults; // The ListView containing the search results
 	List<Course> listData; // The underlying list for the above ListView
 	ResultsAdapter listAdapter; // The adapter that links listData to ListViewSearch
+	
+	boolean flag_items_loading; // True when an HTML post is in-progress
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -64,21 +68,12 @@ public class ResultsActivity extends ActionBarActivity {
 	
 	private void sendSearchPost() {
 		
-		// Block the screen with a ProgressDialog, which gets dismissed
-		// after the HTML request for the class search page returns.
-		
-		// TODO: Make it cancellable but with a retry button behind it,
-		// so if user loses connection it's possible for them to restart
-		// the HTML request.
-		
-		final ProgressDialog HTTPProgress = ProgressDialog.show(ResultsActivity.this, "Searching ...", "Please wait ...", true, false);
-		listViewResults.setVisibility(View.INVISIBLE);
-		
 		// Get intent extras data
 		
 		Intent intent = getIntent();
 		@SuppressWarnings("unchecked")
-		ArrayList<Map<String, String>> searchQueryList = (ArrayList<Map<String, String>>) intent.getSerializableExtra("com.cmps121.ucsccoursebrowser.listData");
+		ArrayList<Map<String, String>> searchQueryList = (ArrayList<Map<String, String>>)
+			intent.getSerializableExtra("com.cmps121.ucsccoursebrowser.listData");
 		
 		// Create an HTTP post to populate this activity
 		
@@ -104,7 +99,7 @@ public class ResultsActivity extends ActionBarActivity {
 		// Construct the HTTP Post request
 		
 		String postURL = PisaHTMLModel.baseURL + PisaHTMLModel.resultsPagePath;
-		HttpPost post = new HttpPost(postURL);
+		final HttpPost post = new HttpPost(postURL);
 		post.setHeader("Content-type", "application/x-www-form-urlencoded");
 		try {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -113,18 +108,67 @@ public class ResultsActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 		
+		// Block the screen with a ProgressDialog, which gets dismissed
+		// after the HTML request for the class search page returns.
+		
+		// TODO: Make it cancellable but with a retry button behind it,
+		// so if user loses connection it's possible for them to restart
+		// the HTML request.
+		
+		final ProgressDialog HTTPProgress = ProgressDialog.show(ResultsActivity.this,
+				"Searching ...", "Please wait ...", true, false);
+		listViewResults.setVisibility(View.INVISIBLE);
+		
 		// Send the HTTP Post request
 		
 		(new HTMLGetter(getApplicationContext()) {
 			@Override
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
-				listData.addAll(HTMLParser.parseResultsPage(result));
-				listAdapter.notifyDataSetChanged();
+				List<Course> resultList = HTMLParser.parseResultsPage(result);
+				if (resultList.isEmpty()) {
+					// No courses found
+					TextView noMatches = (TextView) findViewById(R.id.noMatches);
+					noMatches.setVisibility(View.VISIBLE);
+				} else {
+					// Add courses to listview and show it
+					listData.addAll(resultList);
+					listAdapter.notifyDataSetChanged();
+					listViewResults.setVisibility(View.VISIBLE);
+				}
 				HTTPProgress.dismiss();
-				listViewResults.setVisibility(View.VISIBLE);
 			}
 		}).execute(post);
+		
+		// Set a listener for when the next page of results needs to be loaded
+		// TODO: Enable and implement this
+		
+		/*listViewResults.setOnScrollListener(new OnScrollListener() {
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+			}
+
+			public void onScroll(AbsListView view, int firstVisibleItem,
+								int visibleItemCount, int totalItemCount) {
+				
+				if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+				{
+					if(flag_items_loading == false)
+					{
+						flag_items_loading = true;
+						(new HTMLGetter(getApplicationContext()) {
+							@Override
+							protected void onPostExecute(String result) {
+								// TODO: Parse this in the Async thread instead of the UI thread
+								listData.addAll(HTMLParser.parseResultsPage(result));
+								listAdapter.notifyDataSetChanged();
+								flag_items_loading = false;
+							}
+						}).execute(post);
+					}
+				}
+			}
+		});*/
 	}
 
 	@Override

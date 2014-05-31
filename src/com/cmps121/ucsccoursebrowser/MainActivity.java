@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
@@ -40,9 +42,9 @@ public class MainActivity extends ActionBarActivity {
 
 	public static final String LOG_TAG = "com.cmps121.ucsccoursebrowser";
 	
-	ListView listViewSearch; // The ListView containing the search parameters
-	ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
-	SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
+	private ListView listViewSearch; // The ListView containing the search parameters
+	private ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
+	private SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +106,11 @@ public class MainActivity extends ActionBarActivity {
 				HTMLParser.parseSearchPage(result); // TODO: Parse this in the Async thread instead of the UI thread
 				HTTPProgress.dismiss();
 				listViewSearch.setVisibility(View.VISIBLE);
-				// TODO: Populate ListView using the newly updated "options" field of the search parameters
 				
+				// Because the list view data (initialized in initListViewSearch()) should be the 
+				// same size and in the same order as the LinkedHashMap of search parameters,
+				// we can walk up both of them in tandem to update the list view, instead of doing
+				// a bunch of key queries on the hash map.
 				assert(listData.size() == PisaHTMLModel.SEARCH_PARAMETERS.size());
 				int i = 0;
 				for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {

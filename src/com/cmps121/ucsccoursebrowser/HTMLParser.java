@@ -54,12 +54,18 @@ public class HTMLParser {
 	
 	public static List<Course> parseResultsPage(String html_data) {
 		
-		List<Course> result = new ArrayList<Course>();
-		
 		Document doc = Jsoup.parse(html_data);
 		
 		Element results_tbody = doc.getElementById("results_table").getElementsByTag("tbody").first();
 		Elements t_rows = results_tbody.getElementsByTag("tr");
+		
+		if (t_rows.get(0).getElementsByTag("td").get(0).html().equals("")) {
+			// No results found
+			return new ArrayList<Course>();
+		}
+		
+		List<Course> result = new ArrayList<Course>();
+		
 		for (Element t_row : t_rows) {
 			Elements tds = t_row.getElementsByTag("td");
 			
@@ -83,7 +89,7 @@ public class HTMLParser {
 			result.add(course);
 		}
 		
-		return result; // TODO: Implementation
+		return result;
 	}
 	
 	public static CourseDetail parseDetailPage(String html_data) {
