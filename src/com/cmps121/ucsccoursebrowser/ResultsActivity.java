@@ -111,9 +111,7 @@ public class ResultsActivity extends ActionBarActivity {
 		// Block the screen with a ProgressDialog, which gets dismissed
 		// after the HTML request for the class search page returns.
 		
-		// TODO: Make it cancellable but with a retry button behind it,
-		// so if user loses connection it's possible for them to restart
-		// the HTML request.
+		// TODO: Make it cancellable and go back to the search activity when cancelled.
 		
 		final ProgressDialog HTTPProgress = ProgressDialog.show(ResultsActivity.this,
 				"Searching ...", "Please wait ...", true, false);
@@ -143,6 +141,11 @@ public class ResultsActivity extends ActionBarActivity {
 		// Set a listener for when the next page of results needs to be loaded
 		// TODO: Enable and implement this
 		
+		final HttpPost nextPagePost = new HttpPost(postURL);
+		List<NameValuePair> nextPageNameValuePairs = new ArrayList<NameValuePair>();
+		nextPageNameValuePairs.add(new BasicNameValuePair("action", "next"));
+		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", "25")); // How many more results we want
+		
 		/*listViewResults.setOnScrollListener(new OnScrollListener() {
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -151,7 +154,7 @@ public class ResultsActivity extends ActionBarActivity {
 			public void onScroll(AbsListView view, int firstVisibleItem,
 								int visibleItemCount, int totalItemCount) {
 				
-				if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+				if(firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0)
 				{
 					if(flag_items_loading == false)
 					{
@@ -164,7 +167,7 @@ public class ResultsActivity extends ActionBarActivity {
 								listAdapter.notifyDataSetChanged();
 								flag_items_loading = false;
 							}
-						}).execute(post);
+						}).execute(nextPagePost);
 					}
 				}
 			}
