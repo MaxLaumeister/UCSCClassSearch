@@ -15,6 +15,7 @@ import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class ResultsActivity extends ActionBarActivity {
 		listViewResults = (ListView) findViewById(R.id.listViewResults);
 		listData = new ArrayList<Course>();
 		listViewResults.setAdapter(listAdapter);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable up navigation
 		
 		listAdapter = new ResultsAdapter(this, (List<? extends Map<String, ?>>) listData,
 				R.layout.search_result_listview_item, 
@@ -217,13 +219,14 @@ public class ResultsActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		switch (item.getItemId()) {
+		    // Respond to the action bar's Up/Home button
+		    case android.R.id.home:
+		    	finish();
+		        return true;
+		    case R.id.action_settings:
+		    	return true;
+		    }
 		return super.onOptionsItemSelected(item);
 	}
 	
