@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class ResultsActivity extends ActionBarActivity {
 	private View footerView; // The loading text and spinner at the bottom of ListViewResults
 	
 	private boolean flag_items_loading; // True when an HTML post is in-progress
-	private boolean last_results_page = false; // True when there are no more pages of results to load
+	private boolean last_results_page; // True when there are no more pages of results to load
 	private final int RESULTS_PER_PAGE = 25;
 	
 	@SuppressWarnings("unchecked")
@@ -263,6 +264,18 @@ public class ResultsActivity extends ActionBarActivity {
 		    TextView text3 = (TextView) v.findViewById(R.id.textView3);
 		    if (text3 != null) {
 		    	text3.setText(course.instructor);
+		    }
+		    
+		    ImageView green_circle = (ImageView) v.findViewById(R.id.green_circle);
+		    ImageView blue_square = (ImageView) v.findViewById(R.id.blue_square);
+		    
+		    green_circle.setVisibility(View.GONE);
+		    blue_square.setVisibility(View.GONE);
+		    
+		    if (course.status.equals("Open")) {
+		    	green_circle.setVisibility(View.VISIBLE);
+		    } else if (course.status.equals("Closed")) {
+		    	blue_square.setVisibility(View.VISIBLE);
 		    }
 
 		    return v;
