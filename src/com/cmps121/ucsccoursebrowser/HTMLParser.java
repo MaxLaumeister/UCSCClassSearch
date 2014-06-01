@@ -1,13 +1,18 @@
 package com.cmps121.ucsccoursebrowser;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 import org.jsoup.select.Elements;
 
 import android.text.Html;
@@ -28,6 +33,7 @@ public class HTMLParser {
 		
 		try { 
 			Document doc = Jsoup.parse(html_data);
+			
 			for (Map.Entry<String, SearchParameter> entry : PisaHTMLModel.SEARCH_PARAMETERS.entrySet()) {
 				SearchParameter param = entry.getValue();
 				Element select = doc.getElementById(param.html_id);
@@ -72,15 +78,17 @@ public class HTMLParser {
 				Elements tds = t_row.getElementsByTag("td");
 				
 				// Time for some dom traversal
+				final String classTitleNumber = StringEscapeUtils.unescapeHtml4(tds.get(1).html().split(" - ")[0]);
+				final String classTitleName = StringEscapeUtils.unescapeHtml4(tds.get(2).getElementsByTag("a").get(0).html());
 				
-				final String title = tds.get(1).html();
-				final String time = tds.get(4).html() + " " + tds.get(5).html();
-				final String instructor = tds.get(6).html();
-				final String status = tds.get(7).getElementsByTag("img").get(0).attr("alt");
+				final String title = classTitleNumber + " - " + classTitleName;
+				final String time = StringEscapeUtils.unescapeHtml4(tds.get(4).html() + " " + tds.get(5).html());
+				final String instructor = StringEscapeUtils.unescapeHtml4(tds.get(6).html()).replace("<br />", ", ").replace(",", ", ");
+				final String status = StringEscapeUtils.unescapeHtml4(tds.get(7).getElementsByTag("img").get(0).attr("alt"));
 				final int capacity = Integer.parseInt(tds.get(8).html());
 				final int enrollment_total = Integer.parseInt(tds.get(9).html()); 
 				final int available_seats = Integer.parseInt(tds.get(10).html()); 
-				final String type = tds.get(3).html();
+				final String type = StringEscapeUtils.unescapeHtml4(tds.get(3).html());
 				
 				// The moment you've all been waiting for...
 				
