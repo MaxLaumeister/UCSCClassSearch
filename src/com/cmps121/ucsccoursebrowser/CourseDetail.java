@@ -11,11 +11,11 @@ public class CourseDetail extends Course {
 	final int credits;
 	
 	public CourseDetail(String title, String time, String instructor, String status,
-			int capacity, int enrollment_total, int available_seats, String type,
+			int capacity, int enrollment_total, int available_seats, String detail_url, String type,
 			int wait_list_capacity, int wait_list_total, String genEds, String description, int credits) {
 		
 		super(title, time, instructor, status,
-				capacity, enrollment_total, available_seats, type);
+				capacity, enrollment_total, available_seats, type, detail_url);
 		
 		this.wait_list_capacity = wait_list_capacity;
 		this.wait_list_total = wait_list_total;

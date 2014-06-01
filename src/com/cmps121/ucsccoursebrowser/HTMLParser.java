@@ -78,6 +78,7 @@ public class HTMLParser {
 				Elements tds = t_row.getElementsByTag("td");
 				
 				// Time for some dom traversal
+				
 				final String classTitleNumber = StringEscapeUtils.unescapeHtml4(tds.get(1).html().split(" - ")[0]);
 				final String classTitleName = StringEscapeUtils.unescapeHtml4(tds.get(2).getElementsByTag("a").get(0).html());
 				
@@ -89,10 +90,12 @@ public class HTMLParser {
 				final int enrollment_total = Integer.parseInt(tds.get(9).html()); 
 				final int available_seats = Integer.parseInt(tds.get(10).html()); 
 				final String type = StringEscapeUtils.unescapeHtml4(tds.get(3).html());
+				final String detail_url = tds.get(0).getElementsByTag("a").get(0).attr("href");
 				
 				// The moment you've all been waiting for...
 				
-				Course course = new Course(title, time, instructor, status, capacity, enrollment_total, available_seats, type);
+				Course course = new Course(title, time, instructor, status, capacity,
+						enrollment_total, available_seats, type, detail_url);
 				
 				// And add it into the list
 				
@@ -106,6 +109,37 @@ public class HTMLParser {
 	}
 	
 	public static CourseDetail parseDetailPage(String html_data) {
-		return null; // TODO: Implementation
+		try {
+			Document doc = Jsoup.parse(html_data);
+			
+			String escapedTitle = doc.getElementsContainingOwnText("Class Detail").select("h4")
+					.get(0).parent().parent().parent().child(1).child(0)
+					.html().split("<")[0].replace("&nbsp;&nbsp; ", "\n");
+			
+			Log.d(LOG_TAG, escapedTitle);
+			
+			String title = StringEscapeUtils.unescapeHtml4(escapedTitle);
+			String time = "ExampleTime";
+			String instructor = "ExampleInstructor";
+			String status = "ExampleStatus";
+			int capacity = 0;
+			int enrollment_total = 0;
+			int available_seats = 0;
+			String detail_url = null;
+			String type = "ExampleType";
+			int wait_list_capacity = 0;
+			int wait_list_total = 0;
+			String genEds = "ExampleGeneds";
+			String description = "ExampleDesc";
+			int credits = 0;
+			
+			return new CourseDetail(title, time, instructor, status, capacity, enrollment_total,
+					available_seats, detail_url, type, wait_list_capacity, wait_list_total,
+					genEds, description, credits);
+			
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+			Log.e(LOG_TAG, "Error Parsing HTML", e);
+			return null;
+		}
 	}
 }

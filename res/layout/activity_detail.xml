@@ -6,14 +6,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cmps121.ucsccoursebrowser.DetailActivity" >
+    tools:context="com.cmps121.ucsccoursebrowser.DetailActivity"
+    android:id="@+id/scroll_view" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         
-        <TextView
-        android:id="@+id/textView1"
+    <TextView
+        android:id="@+id/textViewCourseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,20 +22,20 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewCourseTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/textViewCourseName"
         android:text="Course Time"
         android:textColor="@color/gray" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewInstructor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/textViewCourseTime"
         android:text="Instructor"
         android:textColor="@color/gray"
         android:paddingBottom="10dp" />
@@ -43,7 +44,7 @@
         android:id="@+id/green_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignBottom="@+id/textViewInstructor"
         android:layout_alignParentRight="true"
         android:src="@drawable/green_circle"
         android:visibility="gone" />
@@ -52,7 +53,7 @@
         android:id="@+id/blue_square"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignBottom="@+id/textViewInstructor"
         android:layout_alignParentRight="true"
         android:src="@drawable/blue_square"
         android:visibility="gone" />
@@ -61,7 +62,7 @@
         android:id="@+id/table_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3" >
+        android:layout_below="@+id/textViewInstructor" >
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -185,10 +186,10 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is placeholder text. If you are seeing this instead of a course description, that means something went wrong."
+        android:text="This is placeholder text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam suscipit nulla sit amet fringilla auctor. Phasellus cursus dolor ultrices enim pellentesque scelerisque."
 		android:layout_below="@+id/table_layout" />
 
     </RelativeLayout>

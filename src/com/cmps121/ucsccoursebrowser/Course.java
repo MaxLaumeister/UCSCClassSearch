@@ -1,5 +1,7 @@
 package com.cmps121.ucsccoursebrowser;
 
+import java.io.Serializable;
+
 // The Course object contains course information as displayed on the Search Results page.
 // When the user taps on a course in the Search Results Activity, an HTML request will be made
 // for the Pisa Class Detail page. Then a CourseDetail object will be constructed using
@@ -18,9 +20,10 @@ public class Course {
 	final int enrollment_total; 
 	final int available_seats; 
 	final String type; // LEC, LAB, SEM, etc.
+	final String detail_url; // The url that points to the detail page for the class
 	
 	public Course(String title, String time, String instructor, String status,
-					int capacity, int enrollment_total, int available_seats, String type) {
+					int capacity, int enrollment_total, int available_seats, String type, String detail_url) {
 		
 		this.title = title;
 		this.time = time;
@@ -30,6 +33,7 @@ public class Course {
 		this.enrollment_total = enrollment_total;
 		this.available_seats = available_seats;
 		this.type = type;
+		this.detail_url = detail_url;
 		
 	}
 	

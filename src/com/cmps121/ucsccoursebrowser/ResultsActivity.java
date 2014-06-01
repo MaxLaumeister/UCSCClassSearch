@@ -25,9 +25,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -202,6 +205,19 @@ public class ResultsActivity extends ActionBarActivity {
 					}
 				}
 			}
+		});
+		
+		listViewResults.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				Course course = listData.get(position);
+				Intent intent = new Intent(ResultsActivity.this, DetailActivity.class);
+				intent.putExtra("com.cmps121.ucsccoursebrowser.detail_url", course.detail_url);
+				startActivity(intent);
+			}
+			
 		});
 	}
 	
