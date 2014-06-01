@@ -121,9 +121,9 @@ public class HTMLParser {
 			Element meetingInformationRow = doc.getElementsContainingOwnText("Meeting Information").select("b")
 					.get(0).parent().parent().parent().child(2);
 			
-			String time = meetingInformationRow.child(0).html();
-			String room = meetingInformationRow.child(1).html();
-			String instructor = meetingInformationRow.child(2).html().replace(",", ", ");
+			String time = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(0).html());
+			String room = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(1).html());
+			String instructor = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(2).html().replace(",", ", "));
 			
 			Element classDetailsTbody = doc.getElementsContainingOwnText("Class Details").select("b")
 					.get(0).parent().parent().parent();
