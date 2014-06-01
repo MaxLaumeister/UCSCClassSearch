@@ -4,9 +4,9 @@
     tools:context="com.cmps121.ucsccoursebrowser.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:id="@+id/action_refresh"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="Refresh"/>
 
 </menu>

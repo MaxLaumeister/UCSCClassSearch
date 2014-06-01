@@ -128,6 +128,10 @@ public class MainActivity extends ActionBarActivity {
 		});
 		listViewSearch.setItemsCanFocus(true);
 		
+		loadSearchParameters();
+	}
+	
+	private void loadSearchParameters() {
 		// Block the screen with a ProgressDialog, which gets dismissed
 		// after the HTML request for the class search page returns.
 		
@@ -217,6 +221,9 @@ public class MainActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		} else if (id == R.id.action_refresh) {
+			loadSearchParameters();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
