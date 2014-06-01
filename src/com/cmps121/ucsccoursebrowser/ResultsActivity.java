@@ -141,18 +141,18 @@ public class ResultsActivity extends ActionBarActivity {
 		// Set a listener for when the next page of results needs to be loaded
 		// TODO: Enable and implement this
 		
-		final HttpPost nextPagePost = new HttpPost(postURL);
+		/*final HttpPost nextPagePost = new HttpPost(postURL);
 		List<NameValuePair> nextPageNameValuePairs = new ArrayList<NameValuePair>();
 		nextPageNameValuePairs.add(new BasicNameValuePair("action", "next"));
 		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", "25")); // How many more results we want
 		try {
-			post.setEntity(new UrlEncodedFormEntity(nextPageNameValuePairs));
+			nextPagePost.setEntity(new UrlEncodedFormEntity(nextPageNameValuePairs));
 		} catch (UnsupportedEncodingException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		/*listViewResults.setOnScrollListener(new OnScrollListener() {
+		listViewResults.setOnScrollListener(new OnScrollListener() {
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 
 			}
