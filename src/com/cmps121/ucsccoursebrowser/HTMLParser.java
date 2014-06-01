@@ -66,7 +66,9 @@ public class HTMLParser {
 		try { 
 			Document doc = Jsoup.parse(html_data);
 			
-			Element results_tbody = doc.getElementById("results_table").getElementsByTag("tbody").first();
+			Element results_table = doc.getElementById("results_table");
+			Element results_thead = results_table.getElementsByTag("thead").first();
+			Element results_tbody = results_table.getElementsByTag("tbody").first();
 			Elements t_rows = results_tbody.getElementsByTag("tr");
 			
 			if (t_rows.get(0).getElementsByTag("td").get(0).html().equals("")) {
@@ -74,25 +76,35 @@ public class HTMLParser {
 				return result; // Empty
 			}
 			
+			final int column_number = results_thead.getElementById("class_nbr").elementSiblingIndex();
+			final int column_id = results_thead.getElementById("class_id").elementSiblingIndex();
+			final int column_title = results_thead.getElementById("class_title").elementSiblingIndex();
+			final int column_type = results_thead.getElementById("type").elementSiblingIndex();
+			final int column_times = results_thead.getElementById("times").elementSiblingIndex();
+			final int column_days = results_thead.getElementById("days").elementSiblingIndex();
+			final int column_instructor = results_thead.getElementById("instr_name").elementSiblingIndex();
+			final int column_status = results_thead.getElementById("status").elementSiblingIndex();
+			final int column_capacity = results_thead.getElementById("enrl_cap").elementSiblingIndex();
+			final int column_enrollment_total = results_thead.getElementById("enrl_tot").elementSiblingIndex();
+			final int column_available_seats = results_thead.getElementById("seats_avail").elementSiblingIndex();
+			
 			for (Element t_row : t_rows) {
 				Elements tds = t_row.getElementsByTag("td");
 				
 				// Time for some dom traversal
 				
-				final String classTitleNumber = StringEscapeUtils.unescapeHtml4(tds.get(1).html().split(" - ")[0]);
-				final String classTitleName = StringEscapeUtils.unescapeHtml4(tds.get(2).getElementsByTag("a").get(0).html());
+				final String classTitleNumber = StringEscapeUtils.unescapeHtml4(tds.get(column_id).html().split(" - ")[0]);
+				final String classTitleName = StringEscapeUtils.unescapeHtml4(tds.get(column_title).getElementsByTag("a").get(0).html());
 				
 				final String title = classTitleNumber + " - " + classTitleName;
-				final String time = StringEscapeUtils.unescapeHtml4(tds.get(4).html() + " " + tds.get(5).html());
-				final String instructor = StringEscapeUtils.unescapeHtml4(tds.get(6).html()).replace("<br />", ", ").replace(",", ", ");
-				final String status = StringEscapeUtils.unescapeHtml4(tds.get(7).getElementsByTag("img").get(0).attr("alt"));
-				final int capacity = Integer.parseInt(tds.get(8).html());
-				final int enrollment_total = Integer.parseInt(tds.get(9).html()); 
-				final int available_seats = Integer.parseInt(tds.get(10).html()); 
-				final String type = StringEscapeUtils.unescapeHtml4(tds.get(3).html());
-				final String detail_url = tds.get(0).getElementsByTag("a").get(0).attr("href");
-				
-				// The moment you've all been waiting for...
+				final String time = StringEscapeUtils.unescapeHtml4(tds.get(column_times).html() + " " + tds.get(column_days).html());
+				final String instructor = StringEscapeUtils.unescapeHtml4(tds.get(column_instructor).html()).replace("<br />", ", ").replace(",", ", ");
+				final String status = StringEscapeUtils.unescapeHtml4(tds.get(column_status).getElementsByTag("img").get(0).attr("alt"));
+				final int capacity = Integer.parseInt(tds.get(column_capacity).html());
+				final int enrollment_total = Integer.parseInt(tds.get(column_enrollment_total).html()); 
+				final int available_seats = Integer.parseInt(tds.get(column_available_seats).html()); 
+				final String type = StringEscapeUtils.unescapeHtml4(tds.get(column_type).html());
+				final String detail_url = tds.get(column_number).getElementsByTag("a").get(0).attr("href");
 				
 				Course course = new Course(title, time, instructor, status, capacity,
 						enrollment_total, available_seats, type, detail_url);
@@ -114,29 +126,72 @@ public class HTMLParser {
 			
 			String escapedTitle = doc.getElementsContainingOwnText("Class Detail").select("h4")
 					.get(0).parent().parent().parent().child(1).child(0)
-					.html().split("<")[0].replace("&nbsp;&nbsp; ", "\n"); //   ¯\_(ツ)_/¯
+					.ownText(); //   ¯\_(ツ)_/¯
 			
 			String title = StringEscapeUtils.unescapeHtml4(escapedTitle);
 			
-			Element meetingInformationRow = doc.getElementsContainingOwnText("Meeting Information").select("b")
-					.get(0).parent().parent().parent().child(2);
+			Element meetingInformationTbody = doc.getElementsContainingOwnText("Meeting Information").select("b")
+					.get(0).parent().parent().parent();
+			Element meetingInformationHeaderRow = meetingInformationTbody.child(1);
+			Element meetingInformationRow = meetingInformationTbody.child(2);
 			
-			String time = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(0).html());
-			String room = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(1).html());
-			String instructor = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(2).html().replace(",", ", "));
+			final int column_time = meetingInformationHeaderRow.getElementsContainingOwnText("Days & Times").get(0).parent().elementSiblingIndex();
+			final int column_room = meetingInformationHeaderRow.getElementsContainingOwnText("Room").get(0).parent().elementSiblingIndex();
+			final int column_instructor = meetingInformationHeaderRow.getElementsContainingOwnText("Instructor").get(0).parent().elementSiblingIndex();
 			
-			Element classDetailsTbody = doc.getElementsContainingOwnText("Class Details").select("b")
+			String time = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(column_time).html());
+			String room = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(column_room).html());
+			String instructor = StringEscapeUtils.unescapeHtml4(meetingInformationRow.child(column_instructor).html().replace(",", ", "));
+			
+			final Element classDetailsTbody = doc.getElementsContainingOwnText("Class Details").select("b")
 					.get(0).parent().parent().parent();
 			
-			String status = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(1).child(4).child(0).attr("alt"));
-			int capacity = Integer.parseInt(classDetailsTbody.child(3).child(4).html());
-			String type = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(4).child(1).html());
-			int enrollment_total = Integer.parseInt(classDetailsTbody.child(4).child(4).html());
-			int available_seats = Integer.parseInt(classDetailsTbody.child(4).child(4).html());
+			// Position in the Class Details table
+			class Position {
+				int row;
+				int col;
+				
+				Position(String key) {
+					init(key);
+				}
+				
+				Position(String key, String alt_key) {
+					Elements tds = classDetailsTbody.getElementsContainingOwnText(key);
+					if (!tds.isEmpty()) init(key);
+					else init(alt_key);
+				}
+				
+				void init(String key_name) {
+					Log.d(LOG_TAG, classDetailsTbody.outerHtml());
+					Log.d(LOG_TAG, key_name);
+					Element td  = classDetailsTbody.getElementsContainingOwnText(key_name).get(0).parent();
+					col = td.elementSiblingIndex() + 1; // Move one to the right
+					row = td.parent().elementSiblingIndex();
+				}
+				
+				Element getElement() {
+					return classDetailsTbody.child(row).child(col);
+				}
+			}
+			
+			Position pos_status = new Position("Status");
+			Position pos_capacity = new Position("Enrollment Capacity", "Combined Section Capacity");
+			Position pos_type = new Position("Type");
+			Position pos_enrollment_total = new Position("Enrolled");
+			Position pos_available_seats = new Position("Available Seats");
+			Position pos_credits = new Position("Credits");
+			Position pos_wait_list_capacity = new Position("Wait List Capacity");
+			Position pos_genEds = new Position("General Education");
+			
+			String status = StringEscapeUtils.unescapeHtml4(pos_status.getElement().child(0).attr("alt"));
+			int capacity = Integer.parseInt(pos_capacity.getElement().html());
+			String type = StringEscapeUtils.unescapeHtml4(pos_type.getElement().html());
+			int enrollment_total = Integer.parseInt(pos_enrollment_total.getElement().html());
+			int available_seats = Integer.parseInt(pos_available_seats.getElement().html());
 			String detail_url = null; // Don't need this anymore
-			String credits = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(5).child(1).html());
-			int wait_list_capacity = Integer.parseInt(classDetailsTbody.child(5).child(4).html());
-			String genEds = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(6).child(1).html());
+			String credits = StringEscapeUtils.unescapeHtml4(pos_credits.getElement().html());
+			int wait_list_capacity = Integer.parseInt(pos_wait_list_capacity.getElement().html());
+			String genEds = StringEscapeUtils.unescapeHtml4(pos_genEds.getElement().html());
 			
 			if (genEds.equals("")) {
 				genEds = "(None)";

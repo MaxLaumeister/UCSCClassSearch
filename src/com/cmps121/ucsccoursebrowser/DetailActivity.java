@@ -63,9 +63,9 @@ public class DetailActivity extends ActionBarActivity {
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
 				CourseDetail course = HTMLParser.parseDetailPage(result);
+				HTTPProgress.dismiss();
 				if (course == null) return;
 				scroll_view.setVisibility(View.VISIBLE);
-				HTTPProgress.dismiss();
 				
 				// Fill views with course data
 				
