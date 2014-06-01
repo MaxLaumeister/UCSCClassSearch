@@ -38,7 +38,8 @@ public class ResultsActivity extends ActionBarActivity {
 	
 	private ListView listViewResults; // The ListView containing the search results
 	private List<Course> listData; // The underlying list for the above ListView
-	private ResultsAdapter listAdapter; // The adapter that links listData to ListViewSearch
+	private ResultsAdapter listAdapter; // The adapter that links listData to ListViewResults
+	private View footerView; // The loading text and spinner at the bottom of ListViewResults
 	
 	private boolean flag_items_loading; // True when an HTML post is in-progress
 	private boolean last_results_page = false; // True when there are no more pages of results to load
@@ -52,6 +53,8 @@ public class ResultsActivity extends ActionBarActivity {
 		
 		// Initialize
 		
+		flag_items_loading = true;
+		last_results_page = false;
 		listViewResults = (ListView) findViewById(R.id.listViewResults);
 		listData = new ArrayList<Course>();
 		listViewResults.setAdapter(listAdapter);
@@ -63,9 +66,16 @@ public class ResultsActivity extends ActionBarActivity {
 		
 		listViewResults.setAdapter(listAdapter);
 		
-		// Send the post request that will populate the listView
+		// Send the post request that will populate the ListView
 		
 		sendSearchPost();
+		
+		// Add a loading spinner at the bottom of the ListView that
+		// signifies that more results are being loaded.
+		
+		footerView = ((LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.search_result_listview_spinner, null, false);
+		listViewResults.addFooterView(footerView);
 	}
 	
 	private void sendSearchPost() {
@@ -133,11 +143,13 @@ public class ResultsActivity extends ActionBarActivity {
 				} else {
 					// Add courses to listview and show it
 					listData.addAll(resultList);
-					if (resultList.size() < RESULTS_PER_PAGE) last_results_page = true;
 					listAdapter.notifyDataSetChanged();
 					listViewResults.setVisibility(View.VISIBLE);
 				}
 				HTTPProgress.dismiss();
+				
+				if (resultList.size() < RESULTS_PER_PAGE) notifyEndOfResults();
+				flag_items_loading = false;
 			}
 		}).execute(post);
 		
@@ -179,14 +191,20 @@ public class ResultsActivity extends ActionBarActivity {
 								List<Course> resultList = HTMLParser.parseResultsPage(result);
 								listData.addAll(resultList);
 								listAdapter.notifyDataSetChanged();
+								
 								flag_items_loading = false;
-								if (resultList.size() < RESULTS_PER_PAGE) last_results_page = true;
+								if (resultList.size() < RESULTS_PER_PAGE) notifyEndOfResults();
 							}
 						}).execute(nextPagePost);
 					}
 				}
 			}
 		});
+	}
+	
+	private void notifyEndOfResults() {
+		last_results_page = true;
+		listViewResults.removeFooterView(footerView);
 	}
 
 	@Override
