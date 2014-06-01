@@ -86,7 +86,7 @@ public class DetailActivity extends ActionBarActivity {
 					((ImageView) findViewById(R.id.blue_square_detail)).setVisibility(View.VISIBLE);
 				}
 			}
-		}).execute(new HttpPost(detail_url));
+		}).execute(new HttpGet(detail_url));
 	}
 
 	@Override
