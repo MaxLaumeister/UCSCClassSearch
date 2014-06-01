@@ -51,7 +51,7 @@ public class HTMLParser {
 					param.options = optionsObjects;
 				}
 			}
-		} catch (IndexOutOfBoundsException e) {
+		} catch (Exception e) {
 			Log.e("Error Parsing HTML", "exception", e);
 			return false;
 		}
@@ -101,7 +101,7 @@ public class HTMLParser {
 				
 				result.add(course);
 			}
-		} catch (IndexOutOfBoundsException | NullPointerException e) {
+		} catch (Exception e) {
 			Log.e(LOG_TAG, "Error Parsing HTML", e);
 			return new ArrayList<Course>();
 		}
@@ -114,30 +114,44 @@ public class HTMLParser {
 			
 			String escapedTitle = doc.getElementsContainingOwnText("Class Detail").select("h4")
 					.get(0).parent().parent().parent().child(1).child(0)
-					.html().split("<")[0].replace("&nbsp;&nbsp; ", "\n");
-			
-			Log.d(LOG_TAG, escapedTitle);
+					.html().split("<")[0].replace("&nbsp;&nbsp; ", "\n"); //   ¯\_(ツ)_/¯
 			
 			String title = StringEscapeUtils.unescapeHtml4(escapedTitle);
-			String time = "ExampleTime";
-			String instructor = "ExampleInstructor";
-			String status = "ExampleStatus";
-			int capacity = 0;
-			int enrollment_total = 0;
-			int available_seats = 0;
-			String detail_url = null;
-			String type = "ExampleType";
-			int wait_list_capacity = 0;
-			int wait_list_total = 0;
-			String genEds = "ExampleGeneds";
-			String description = "ExampleDesc";
-			int credits = 0;
+			
+			Element meetingInformationRow = doc.getElementsContainingOwnText("Meeting Information").select("b")
+					.get(0).parent().parent().parent().child(2);
+			
+			String time = meetingInformationRow.child(0).html();
+			String room = meetingInformationRow.child(1).html();
+			String instructor = meetingInformationRow.child(2).html().replace(",", ", ");
+			
+			Element classDetailsTbody = doc.getElementsContainingOwnText("Class Details").select("b")
+					.get(0).parent().parent().parent();
+			
+			String status = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(1).child(4).child(0).attr("alt"));
+			int capacity = Integer.parseInt(classDetailsTbody.child(3).child(4).html());
+			String type = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(4).child(1).html());
+			int enrollment_total = Integer.parseInt(classDetailsTbody.child(4).child(4).html());
+			int available_seats = Integer.parseInt(classDetailsTbody.child(4).child(4).html());
+			String detail_url = null; // Don't need this anymore
+			String credits = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(5).child(1).html());
+			int wait_list_capacity = Integer.parseInt(classDetailsTbody.child(5).child(4).html());
+			String genEds = StringEscapeUtils.unescapeHtml4(classDetailsTbody.child(6).child(1).html());
+			
+			if (genEds.equals("")) {
+				genEds = "(None)";
+			}
+			
+			int wait_list_total = Integer.parseInt(classDetailsTbody.child(6).child(4).html());
+			String description = StringEscapeUtils.unescapeHtml4(doc.getElementsContainingOwnText("Description")
+					.select("b").get(0).parent().parent().parent().child(1).child(0).html().replaceAll("<[^>]*>", ""));
+			// The regex strips out any remaining HTML tags
 			
 			return new CourseDetail(title, time, instructor, status, capacity, enrollment_total,
 					available_seats, detail_url, type, wait_list_capacity, wait_list_total,
-					genEds, description, credits);
+					genEds, description, credits, room);
 			
-		} catch (IndexOutOfBoundsException | NullPointerException e) {
+		} catch (Exception e) {
 			Log.e(LOG_TAG, "Error Parsing HTML", e);
 			return null;
 		}

@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -70,15 +71,20 @@ public class DetailActivity extends ActionBarActivity {
 				
 				((TextView) findViewById(R.id.textViewCourseName)).setText(course.title);
 				((TextView) findViewById(R.id.textViewCourseTime)).setText(course.time);
+				((TextView) findViewById(R.id.textViewCourseRoom)).setText(course.room);
 				((TextView) findViewById(R.id.textViewInstructor)).setText(course.instructor);
 				((TextView) findViewById(R.id.textViewStatusValue)).setText(course.status);
 				((TextView) findViewById(R.id.textViewEnrolledValue)).setText(Integer.toString(course.enrollment_total) + "/" + Integer.toString(course.capacity));
 				((TextView) findViewById(R.id.textViewTypeValue)).setText(course.type);
-				((TextView) findViewById(R.id.textViewCreditsValue)).setText(Integer.toString(course.credits));
+				((TextView) findViewById(R.id.textViewCreditsValue)).setText(course.credits);
 				((TextView) findViewById(R.id.textViewGEValue)).setText(course.genEds);
 				((TextView) findViewById(R.id.textViewDescription)).setText(course.description);
 				
-				// TODO: Show the circle or the square
+				if (course.status.equals("Open")) {
+					((ImageView) findViewById(R.id.green_circle)).setVisibility(View.VISIBLE);
+				} else if (course.status.equals("Closed")) {
+					((ImageView) findViewById(R.id.blue_square)).setVisibility(View.VISIBLE);
+				}
 			}
 		}).execute(new HttpPost(detail_url));
 	}

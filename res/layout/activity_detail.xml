@@ -29,13 +29,22 @@
         android:layout_below="@+id/textViewCourseName"
         android:text="Course Time"
         android:textColor="@color/gray" />
+    
+    <TextView
+        android:id="@+id/textViewCourseRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewCourseTime"
+        android:text="Course Room"
+        android:textColor="@color/gray" />
 
     <TextView
         android:id="@+id/textViewInstructor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewCourseTime"
+        android:layout_below="@+id/textViewCourseRoom"
         android:text="Instructor"
         android:textColor="@color/gray"
         android:paddingBottom="10dp" />
