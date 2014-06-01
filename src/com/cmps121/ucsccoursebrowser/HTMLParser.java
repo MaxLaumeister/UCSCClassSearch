@@ -126,7 +126,9 @@ public class HTMLParser {
 			
 			String escapedTitle = doc.getElementsContainingOwnText("Class Detail").select("h4")
 					.get(0).parent().parent().parent().child(1).child(0)
-					.ownText(); //   ¯\_(ツ)_/¯
+					.html().split("<")[0].replace("&nbsp;&nbsp; ", "\n"); //   ¯\_(ツ)_/¯
+			
+			Log.d(LOG_TAG, escapedTitle);
 			
 			String title = StringEscapeUtils.unescapeHtml4(escapedTitle);
 			
@@ -162,8 +164,6 @@ public class HTMLParser {
 				}
 				
 				void init(String key_name) {
-					Log.d(LOG_TAG, classDetailsTbody.outerHtml());
-					Log.d(LOG_TAG, key_name);
 					Element td  = classDetailsTbody.getElementsContainingOwnText(key_name).get(0).parent();
 					col = td.elementSiblingIndex() + 1; // Move one to the right
 					row = td.parent().elementSiblingIndex();
@@ -191,10 +191,14 @@ public class HTMLParser {
 			String detail_url = null; // Don't need this anymore
 			String credits = StringEscapeUtils.unescapeHtml4(pos_credits.getElement().html());
 			int wait_list_capacity = Integer.parseInt(pos_wait_list_capacity.getElement().html());
-			String genEds = StringEscapeUtils.unescapeHtml4(pos_genEds.getElement().html());
 			
-			if (genEds.equals("")) {
+			String genEdsEscaped = pos_genEds.getElement().html();
+			
+			String genEds;
+			if (genEdsEscaped.trim().equals("&nbsp;")) { // White space
 				genEds = "(None)";
+			} else {
+				genEds = StringEscapeUtils.unescapeHtml4(pos_genEds.getElement().html());
 			}
 			
 			int wait_list_total = Integer.parseInt(classDetailsTbody.child(6).child(4).html());
