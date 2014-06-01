@@ -31,7 +31,6 @@ public class PisaHTMLModel {
 		s.put("Course Title Keyword", new SearchParameter(FieldType.TEXT_ENTRY,  "title"));
 		s.put("Instructor Last Name", new SearchParameter(FieldType.TEXT_ENTRY,  "instructor"));
 		s.put("General Education",    new SearchParameter(FieldType.MULT_CHOICE, "ge"));
-		s.put("Course Units",         new SearchParameter(FieldType.TEXT_ENTRY,  "crse_units_exact"));
 		s.put("Meeting Days",         new SearchParameter(FieldType.MULT_CHOICE, "Days"));
 		s.put("Meeting Times",        new SearchParameter(FieldType.MULT_CHOICE, "Times"));
 	}

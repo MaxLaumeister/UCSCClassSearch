@@ -17,6 +17,7 @@ import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
 
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
+import android.text.InputType;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
@@ -24,16 +25,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -65,6 +71,8 @@ public class MainActivity extends ActionBarActivity {
 				
 				if (param.type == FieldType.MULT_CHOICE) {
 					
+					// Show single choice dialog
+					
 					// Type juggling
 					HashMap<String, String> optionsList = param.options;
 					final String[] optionsTitlesArray = new String[optionsList.size()];
@@ -84,7 +92,37 @@ public class MainActivity extends ActionBarActivity {
 					})
 					.show();
 				} else if (param.type == FieldType.TEXT_ENTRY) {
-					// TODO: Show a text entry dialog
+					
+					// Show text entry dialog
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+					builder.setTitle(title);
+
+					// Set up the input
+					final EditText input = new EditText(MainActivity.this);
+					input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+					input.setText(listItem.get("Second Line"));
+					builder.setView(input);
+
+					// Set up the buttons
+					builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							listItem.put("Second Line", input.getText().toString());
+							listAdapter.notifyDataSetChanged();
+						}
+					});
+					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					
+					AlertDialog dialog = builder.create();
+					// Show keyboard
+			        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+					dialog.show();
 				}
 			}
 		});
