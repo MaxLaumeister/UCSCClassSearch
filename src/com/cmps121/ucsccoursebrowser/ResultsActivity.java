@@ -36,11 +36,13 @@ public class ResultsActivity extends ActionBarActivity {
 
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
-	ListView listViewResults; // The ListView containing the search results
-	List<Course> listData; // The underlying list for the above ListView
-	ResultsAdapter listAdapter; // The adapter that links listData to ListViewSearch
+	private ListView listViewResults; // The ListView containing the search results
+	private List<Course> listData; // The underlying list for the above ListView
+	private ResultsAdapter listAdapter; // The adapter that links listData to ListViewSearch
 	
-	boolean flag_items_loading; // True when an HTML post is in-progress
+	private boolean flag_items_loading; // True when an HTML post is in-progress
+	private boolean last_results_page = false; // True when there are no more pages of results to load
+	private final int RESULTS_PER_PAGE = 25;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -131,6 +133,7 @@ public class ResultsActivity extends ActionBarActivity {
 				} else {
 					// Add courses to listview and show it
 					listData.addAll(resultList);
+					if (resultList.size() < RESULTS_PER_PAGE) last_results_page = true;
 					listAdapter.notifyDataSetChanged();
 					listViewResults.setVisibility(View.VISIBLE);
 				}
@@ -143,7 +146,8 @@ public class ResultsActivity extends ActionBarActivity {
 		final HttpPost nextPagePost = new HttpPost(postURL);
 		List<NameValuePair> nextPageNameValuePairs = new ArrayList<NameValuePair>();
 		nextPageNameValuePairs.add(new BasicNameValuePair("action", "next"));
-		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", "25")); // How many more results we want
+		 // How many more results we want
+		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", Integer.toString(RESULTS_PER_PAGE)));
 		
 		nextPagePost.setHeader("Origin", "https://pisa.ucsc.edu");
 		nextPagePost.setHeader("Referer", "https://pisa.ucsc.edu/class_search/index.php");
@@ -165,16 +169,18 @@ public class ResultsActivity extends ActionBarActivity {
 				
 				if(firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0)
 				{
-					if(flag_items_loading == false)
+					if(flag_items_loading == false && last_results_page == false)
 					{
 						flag_items_loading = true;
 						(new HTMLGetter(getApplicationContext()) {
 							@Override
 							protected void onPostExecute(String result) {
 								// TODO: Parse this in the Async thread instead of the UI thread
-								listData.addAll(HTMLParser.parseResultsPage(result));
+								List<Course> resultList = HTMLParser.parseResultsPage(result);
+								listData.addAll(resultList);
 								listAdapter.notifyDataSetChanged();
 								flag_items_loading = false;
+								if (resultList.size() < RESULTS_PER_PAGE) last_results_page = true;
 							}
 						}).execute(nextPagePost);
 					}
