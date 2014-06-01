@@ -34,8 +34,6 @@ public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 		assert(httppostArr.length == 1);
 		HttpPost httppost = httppostArr[0];
 		httppost.setHeader("Content-type", "application/x-www-form-urlencoded");
-		
-		Log.d(LOG_TAG, httpclient.getCookieStore().getCookies().toString());
 
 		InputStream inputStream = null;
 		String result = null;

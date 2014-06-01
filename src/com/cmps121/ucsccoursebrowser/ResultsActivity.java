@@ -138,13 +138,16 @@ public class ResultsActivity extends ActionBarActivity {
 			}
 		}).execute(post);
 		
-		// Set a listener for when the next page of results needs to be loaded
-		// TODO: Enable and implement this
+		// Set a listener and post request for when the next page of results needs to be loaded
 		
-		/*final HttpPost nextPagePost = new HttpPost(postURL);
+		final HttpPost nextPagePost = new HttpPost(postURL);
 		List<NameValuePair> nextPageNameValuePairs = new ArrayList<NameValuePair>();
 		nextPageNameValuePairs.add(new BasicNameValuePair("action", "next"));
 		nextPageNameValuePairs.add(new BasicNameValuePair("Rec_Dur", "25")); // How many more results we want
+		
+		nextPagePost.setHeader("Origin", "https://pisa.ucsc.edu");
+		nextPagePost.setHeader("Referer", "https://pisa.ucsc.edu/class_search/index.php");
+		
 		try {
 			nextPagePost.setEntity(new UrlEncodedFormEntity(nextPageNameValuePairs));
 		} catch (UnsupportedEncodingException e) {
@@ -177,7 +180,7 @@ public class ResultsActivity extends ActionBarActivity {
 					}
 				}
 			}
-		});*/
+		});
 	}
 
 	@Override
