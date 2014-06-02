@@ -37,6 +37,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.os.Build;
 
+
+import android.R.string; 
+
 public class ResultsActivity extends ActionBarActivity {
 
 	private static final String LOG_TAG = MainActivity.LOG_TAG;

@@ -207,6 +207,13 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 
+	public void onClickBookmarkButton(View v) {
+		Intent intent = new Intent(this, BookmarkActivity.class);
+		intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+		startActivity(intent);
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
