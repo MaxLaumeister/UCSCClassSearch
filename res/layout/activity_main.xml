@@ -24,18 +24,11 @@
 		<Button
 		    android:layout_width="154dp"
 		    android:layout_height="wrap_content"
-		    android:layout_gravity="left"
+		    android:layout_gravity="center"
 		    android:onClick="onClickSearchButton"
 		    android:text="@string/search_button"
 		    android:textColor="@color/white" />
 
-		<Button
-		    android:layout_width="154dp"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="right"
-		    android:onClick="onClickBookmarkButton"
-		    android:text="Bookmarks"
-		    android:textColor="@color/white" />
 
 	</FrameLayout>
 

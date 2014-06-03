@@ -9,5 +9,6 @@
     <string name="title_activity_detail">Course Details</string>
     <string name="title_activity_bookmark">Bookmarks</string>
     <string name="search_button">Search</string>
+    <string name="Bookmarks"></string>
 
 </resources>

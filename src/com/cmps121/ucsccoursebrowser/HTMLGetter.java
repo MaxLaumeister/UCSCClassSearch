@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 
@@ -15,7 +14,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public abstract class HTMLGetter extends AsyncTask<HttpUriRequest, Void, String>{
+public abstract class HTMLGetter extends AsyncTask<HttpPost, Void, String>{
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
@@ -31,22 +30,17 @@ public abstract class HTMLGetter extends AsyncTask<HttpUriRequest, Void, String>
 	// Returns the String representing the HTML retrieved in response to the post data.
 	
 	@Override
-	protected String doInBackground(HttpUriRequest... httppostArr) {
+	protected String doInBackground(HttpPost... httppostArr) {
 		assert(httppostArr.length == 1);
-		HttpUriRequest httppost = httppostArr[0];
+		HttpPost httppost = httppostArr[0];
 		httppost.setHeader("Content-type", "application/x-www-form-urlencoded");
 		
-		Log.d(LOG_TAG, "HTTP REQUEST");
+		Log.d(LOG_TAG, "HTTP POST");
 
 		InputStream inputStream = null;
 		String result = null;
 		try {
-		    HttpResponse response;
-		    if (httppost instanceof HttpPost) {
-		    	response = httpclient.execute(httppost);
-		    } else {
-		    	response = (new DefaultHttpClient(new BasicHttpParams())).execute(httppost);
-		    }
+		    HttpResponse response = httpclient.execute(httppost);
 		    HttpEntity entity = response.getEntity();
 
 		    inputStream = entity.getContent();

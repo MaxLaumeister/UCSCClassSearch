@@ -207,11 +207,11 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 
-	public void onClickBookmarkButton(View v) {
-		Intent intent = new Intent(this, BookmarkActivity.class);
-		intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
-		startActivity(intent);
-	}
+	//public void onClickBookmarkButton(View v) {
+		//Intent intent = new Intent(this, BookmarkActivity.class);
+		//intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+		//startActivity(intent);
+	//}
 	
 	
 	@Override
@@ -232,6 +232,10 @@ public class MainActivity extends ActionBarActivity {
 		} else if (id == R.id.action_refresh) {
 			loadSearchParameters();
 			return true;
+		}else if(id == R.id.action_bookmark_list){
+			Intent intent = new Intent(this, BookmarkActivity.class);
+			intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
