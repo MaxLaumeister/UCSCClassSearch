@@ -36,8 +36,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.os.Build;
-
-
 import android.R.string; 
 
 public class ResultsActivity extends ActionBarActivity {
@@ -46,7 +44,7 @@ public class ResultsActivity extends ActionBarActivity {
 	
 	private ListView listViewResults; // The ListView containing the search results
 	private List<Course> listData; // The underlying list for the above ListView
-	private ResultsAdapter listAdapter; // The adapter that links listData to ListViewResults
+	private CourseAdapter listAdapter; // The adapter that links listData to ListViewResults
 	private View footerView; // The loading text and spinner at the bottom of ListViewResults
 	
 	private boolean flag_items_loading; // True when an HTML post is in-progress
@@ -68,7 +66,7 @@ public class ResultsActivity extends ActionBarActivity {
 		listViewResults.setAdapter(listAdapter);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable up navigation
 		
-		listAdapter = new ResultsAdapter(this, (List<? extends Map<String, ?>>) listData,
+		listAdapter = new CourseAdapter(this, (List<? extends Map<String, ?>>) listData,
 				R.layout.search_result_listview_item, 
 				new String[] {"First Line", "Second Line" }, 
 				new int[] {android.R.id.text1, android.R.id.text2 });
@@ -247,58 +245,6 @@ public class ResultsActivity extends ActionBarActivity {
 		        return true;
 		    }
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public class ResultsAdapter extends SimpleAdapter {
-
-		public ResultsAdapter(Context context,
-				List<? extends Map<String, ?>> data, int resource,
-				String[] from, int[] to) {
-			super(context, data, resource, from, to);
-			// Auto-generated constructor stub
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View v = convertView;
-		    if (v == null) {
-		    	LayoutInflater vi = (LayoutInflater) parent.getContext()
-		    			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		    	v = vi.inflate(R.layout.search_result_listview_item, null);
-		    }
-		    
-		    Course course = listData.get(position);
-		    
-		    TextView text1 = (TextView) v.findViewById(R.id.textView1);
-		    if (text1 != null) {
-		    	text1.setText(course.title);
-		    }
-		    
-		    TextView text2 = (TextView) v.findViewById(R.id.textView2);
-		    if (text2 != null) {
-		    	text2.setText(course.time);
-		    }
-		    
-		    TextView text3 = (TextView) v.findViewById(R.id.textView3);
-		    if (text3 != null) {
-		    	text3.setText(course.instructor);
-		    }
-		    
-		    ImageView green_circle = (ImageView) v.findViewById(R.id.green_circle);
-		    ImageView blue_square = (ImageView) v.findViewById(R.id.blue_square);
-		    
-		    green_circle.setVisibility(View.GONE);
-		    blue_square.setVisibility(View.GONE);
-		    
-		    if (course.status.equals("Open")) {
-		    	green_circle.setVisibility(View.VISIBLE);
-		    } else if (course.status.equals("Closed")) {
-		    	blue_square.setVisibility(View.VISIBLE);
-		    }
-
-		    return v;
-		}
-		
 	}
 
 }

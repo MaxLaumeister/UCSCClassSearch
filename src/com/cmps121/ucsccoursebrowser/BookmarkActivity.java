@@ -47,7 +47,7 @@ public class BookmarkActivity extends ActionBarActivity {
 	
 	private ListView listViewSaves; //the list view 
 	private List<Course> listData;
-	private ResultsAdapter listAdapter; 
+	private CourseAdapter listAdapter; 
 	private View footerView; 
 	
 	private boolean flag_items_loading; 
@@ -69,24 +69,13 @@ public class BookmarkActivity extends ActionBarActivity {
 		listViewSaves.setAdapter(listAdapter);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable up navigation
 		
-		listAdapter = new ResultsAdapter(this, (List<? extends Map<String, ?>>) listData,
+		listAdapter = new CourseAdapter(this, (List<? extends Map<String, ?>>) listData,
 				R.layout.search_result_listview_item, 
 				new String[] {"First Line", "Second Line" }, 
 				new int[] {android.R.id.text1, android.R.id.text2 });
 		
 		listViewSaves.setAdapter(listAdapter);
 		
-		//sendSearchPost(); 
-		
-		footerView = ((LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                .inflate(R.layout.search_result_listview_spinner, null, false);
-		listViewSaves.addFooterView(footerView);
-		
-	}
-
-	private void notifyEndOfResults() {
-		last_saves_page = true;
-		listViewSaves.removeFooterView(footerView);
 	}
 	
 	
@@ -97,9 +86,6 @@ public class BookmarkActivity extends ActionBarActivity {
 		getMenuInflater().inflate(R.menu.bookmark, menu);
 		return true;
 	}
-
-	
-
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -110,59 +96,6 @@ public class BookmarkActivity extends ActionBarActivity {
 		        return true;
 		    }
 		return super.onOptionsItemSelected(item);
-	}
-
-	
-	public class ResultsAdapter extends SimpleAdapter {
-
-		public ResultsAdapter(Context context,
-				List<? extends Map<String, ?>> data, int resource,
-				String[] from, int[] to) {
-			super(context, data, resource, from, to);
-			// Auto-generated constructor stub
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View v = convertView;
-		    if (v == null) {
-		    	LayoutInflater vi = (LayoutInflater) parent.getContext()
-		    			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		    	v = vi.inflate(R.layout.search_result_listview_item, null);
-		    }
-		    
-		    Course course = listData.get(position);
-		    
-		    TextView text1 = (TextView) v.findViewById(R.id.textView1);
-		    if (text1 != null) {
-		    	text1.setText(course.title);
-		    }
-		    
-		    TextView text2 = (TextView) v.findViewById(R.id.textView2);
-		    if (text2 != null) {
-		    	text2.setText(course.time);
-		    }
-		    
-		    TextView text3 = (TextView) v.findViewById(R.id.textView3);
-		    if (text3 != null) {
-		    	text3.setText(course.instructor);
-		    }
-		    
-		    ImageView green_circle = (ImageView) v.findViewById(R.id.green_circle);
-		    ImageView blue_square = (ImageView) v.findViewById(R.id.blue_square);
-		    
-		    green_circle.setVisibility(View.GONE);
-		    blue_square.setVisibility(View.GONE);
-		    
-		    if (course.status.equals("Open")) {
-		    	green_circle.setVisibility(View.VISIBLE);
-		    } else if (course.status.equals("Closed")) {
-		    	blue_square.setVisibility(View.VISIBLE);
-		    }
-
-		    return v;
-		}
-		
 	}
 
 }
