@@ -63,9 +63,9 @@ public class DetailActivity extends ActionBarActivity {
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
 				CourseDetail course = HTMLParser.parseDetailPage(result);
+				HTTPProgress.dismiss();
 				if (course == null) return;
 				scroll_view.setVisibility(View.VISIBLE);
-				HTTPProgress.dismiss();
 				
 				// Fill views with course data
 				
@@ -81,12 +81,12 @@ public class DetailActivity extends ActionBarActivity {
 				((TextView) findViewById(R.id.textViewDescription)).setText(course.description);
 				
 				if (course.status.equals("Open")) {
-					((ImageView) findViewById(R.id.green_circle)).setVisibility(View.VISIBLE);
+					((ImageView) findViewById(R.id.green_circle_detail)).setVisibility(View.VISIBLE);
 				} else if (course.status.equals("Closed")) {
-					((ImageView) findViewById(R.id.blue_square)).setVisibility(View.VISIBLE);
+					((ImageView) findViewById(R.id.blue_square_detail)).setVisibility(View.VISIBLE);
 				}
 			}
-		}).execute(new HttpPost(detail_url));
+		}).execute(new HttpGet(detail_url));
 	}
 
 	@Override

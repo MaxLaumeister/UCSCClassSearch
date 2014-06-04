@@ -103,6 +103,7 @@ public class ResultsActivity extends ActionBarActivity {
 		// Get name-value pairs for the post request
 		
 		nameValuePairs.add(new BasicNameValuePair("action", "results"));
+		nameValuePairs.add(new BasicNameValuePair("binds[:instr_name_op]", "contains"));
 		for (Map<String, String> listItem : searchQueryList) {
 			String search_parameter_title = listItem.get("First Line");
 			String selected_option_title = listItem.get("Second Line");
