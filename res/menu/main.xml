@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_menu_refresh"
         android:title="Refresh"/>
     
-        <item
+    <item
         android:id="@+id/action_bookmark_list"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_star"

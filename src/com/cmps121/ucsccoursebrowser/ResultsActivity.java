@@ -245,8 +245,6 @@ public class ResultsActivity extends ActionBarActivity {
 		    case android.R.id.home:
 		    	finish();
 		        return true;
-		    case R.id.action_settings:
-		    	return true;
 		    }
 		return super.onOptionsItemSelected(item);
 	}

@@ -53,7 +53,7 @@ public class DetailActivity extends ActionBarActivity {
 		// TODO: Make it cancellable and go back to the results activity when cancelled.
 		
 		final ProgressDialog HTTPProgress = ProgressDialog.show(DetailActivity.this,
-				"Searching ...", "Please wait ...", true, false);
+				"Loading ...", "Please wait ...", true, false);
 		scroll_view.setVisibility(View.INVISIBLE);
 		
 		// Send the HTTP request
@@ -104,8 +104,6 @@ public class DetailActivity extends ActionBarActivity {
 		    case android.R.id.home:
 		        finish();
 		        return true;
-		    case R.id.action_settings:
-		    	return true;
 		    }
 		return super.onOptionsItemSelected(item);
 	}
