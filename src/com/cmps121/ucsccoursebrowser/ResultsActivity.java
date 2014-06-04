@@ -225,6 +225,7 @@ public class ResultsActivity extends ActionBarActivity {
 	
 	private void notifyEndOfResults() {
 		last_results_page = true;
+		listViewResults.setAdapter(listAdapter);
 		listViewResults.removeFooterView(footerView);
 	}
 
