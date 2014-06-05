@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 // The PisaHTMLModel class acts as a global data structure, a kind of "database" for storing
 // each search parameter (which each include a label, info about how to display it to the user,
@@ -6,7 +6,7 @@ package com.cmps121.ucsccoursebrowser;
 
 import java.util.LinkedHashMap;
 
-import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+import com.github.ucscclasssearch.SearchParameter.FieldType;
 
 public class PisaHTMLModel {
 	

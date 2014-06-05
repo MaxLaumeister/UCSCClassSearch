@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 // An extended version of Course, to be used for display in the Course Detail Activity
 

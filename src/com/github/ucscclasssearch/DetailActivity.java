@@ -1,12 +1,10 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -25,6 +23,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.os.Build;
+import com.github.ucscclasssearch.R;
 
 public class DetailActivity extends ActionBarActivity {
 	
@@ -40,7 +39,7 @@ public class DetailActivity extends ActionBarActivity {
 		// Retrieve url from extras
 		
 		Intent intent = getIntent();
-		String relative_url = (String) intent.getStringExtra("com.cmps121.ucsccoursebrowser.detail_url");
+		String relative_url = (String) intent.getStringExtra("com.github.ucscclasssearch.detail_url");
 		String detail_url = PisaHTMLModel.baseURL + relative_url;
 		
 		// Enable up navigation

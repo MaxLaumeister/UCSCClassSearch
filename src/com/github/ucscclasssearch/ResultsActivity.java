@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -10,7 +10,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+import com.github.ucscclasssearch.R;
+import com.github.ucscclasssearch.SearchParameter.FieldType;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -92,7 +93,7 @@ public class ResultsActivity extends ActionBarActivity {
 		Intent intent = getIntent();
 		@SuppressWarnings("unchecked")
 		ArrayList<Map<String, String>> searchQueryList = (ArrayList<Map<String, String>>)
-			intent.getSerializableExtra("com.cmps121.ucsccoursebrowser.listData");
+			intent.getSerializableExtra("com.github.ucscclasssearch.listData");
 		
 		// Create an HTTP post to populate this activity
 		
@@ -216,7 +217,7 @@ public class ResultsActivity extends ActionBarActivity {
 					long id) {
 				Course course = listData.get(position);
 				Intent intent = new Intent(ResultsActivity.this, DetailActivity.class);
-				intent.putExtra("com.cmps121.ucsccoursebrowser.detail_url", course.detail_url);
+				intent.putExtra("com.github.ucscclasssearch.detail_url", course.detail_url);
 				startActivity(intent);
 			}
 			

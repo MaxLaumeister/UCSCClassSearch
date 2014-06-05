@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -10,7 +10,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+import com.github.ucscclasssearch.R;
+import com.github.ucscclasssearch.SearchParameter.FieldType;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;

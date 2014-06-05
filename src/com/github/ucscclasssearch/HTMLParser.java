@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -18,7 +18,7 @@ import org.jsoup.select.Elements;
 import android.text.Html;
 import android.util.Log;
 
-import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+import com.github.ucscclasssearch.SearchParameter.FieldType;
 
 // Maybe this class should be merged with PisaHTMLModel...
 

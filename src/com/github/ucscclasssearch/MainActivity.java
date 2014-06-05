@@ -1,4 +1,4 @@
-package com.cmps121.ucsccoursebrowser;
+package com.github.ucscclasssearch;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -13,7 +13,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cmps121.ucsccoursebrowser.SearchParameter.FieldType;
+import com.github.ucscclasssearch.R;
+import com.github.ucscclasssearch.SearchParameter.FieldType;
 
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
@@ -46,7 +47,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-	public static final String LOG_TAG = "com.cmps121.ucsccoursebrowser";
+	public static final String LOG_TAG = "com.github.ucscclasssearch";
 	
 	private ListView listViewSearch; // The ListView containing the search parameters
 	private ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
@@ -203,13 +204,13 @@ public class MainActivity extends ActionBarActivity {
 	
 	public void onClickSearchButton(View v) {
 		Intent intent = new Intent(this, ResultsActivity.class);
-		intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+		intent.putExtra("com.github.ucscclasssearch.listData", listData);
 		startActivity(intent);
 	}
 
 	//public void onClickBookmarkButton(View v) {
 		//Intent intent = new Intent(this, BookmarkActivity.class);
-		//intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+		//intent.putExtra("com.github.ucscclasssearch.listData", listData);
 		//startActivity(intent);
 	//}
 	
@@ -232,7 +233,7 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}else if(id == R.id.action_bookmark_list){
 			Intent intent = new Intent(this, BookmarkActivity.class);
-			intent.putExtra("com.cmps121.ucsccoursebrowser.listData", listData);
+			intent.putExtra("com.github.ucscclasssearch.listData", listData);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
