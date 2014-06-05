@@ -1,7 +1,5 @@
 package com.github.ucscclasssearch;
 
-import java.io.Serializable;
-
 // The Course object contains course information as displayed on the Search Results page.
 // When the user taps on a course in the Search Results Activity, an HTML request will be made
 // for the Pisa Class Detail page. Then a CourseDetail object will be constructed using
