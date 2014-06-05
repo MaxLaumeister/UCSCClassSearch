@@ -27,8 +27,8 @@ public abstract class HTMLGetter extends AsyncTask<HttpUriRequest, Void, String>
 		ctx = context;
 	}
 	
-	// doInBackground(HttpPost request):
-	// Returns the String representing the HTML retrieved in response to the post data.
+	// doInBackground(HttpUriRequest request):
+	// Returns the String representing the HTML retrieved in response to the request.
 	
 	@Override
 	protected String doInBackground(HttpUriRequest... httppostArr) {
