@@ -93,7 +93,7 @@ public class HTMLParser {
 				final String classTitleName = StringEscapeUtils.unescapeHtml4(tds.get(column_title).getElementsByTag("a").get(0).html());
 				
 				final String title = classTitleNumber + " - " + classTitleName;
-				final String time = StringEscapeUtils.unescapeHtml4(tds.get(column_times).html() + " " + tds.get(column_days).html());
+				final String time = StringEscapeUtils.unescapeHtml4(tds.get(column_days).html() + " " + tds.get(column_times).html());
 				final String instructor = StringEscapeUtils.unescapeHtml4(tds.get(column_instructor).html()).replace("<br />", ", ").replace(",", ", ");
 				final String status = StringEscapeUtils.unescapeHtml4(tds.get(column_status).getElementsByTag("img").get(0).attr("alt"));
 				final int capacity = Integer.parseInt(tds.get(column_capacity).html());
