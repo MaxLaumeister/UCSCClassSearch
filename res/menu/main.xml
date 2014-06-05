@@ -8,11 +8,5 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_refresh"
         android:title="Refresh"/>
-    
-    <item
-        android:id="@+id/action_bookmark_list"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_menu_star"
-        android:title="Bookmark"/>
 
 </menu>

@@ -212,10 +212,6 @@ public class MainActivity extends ActionBarActivity {
 		if (id == R.id.action_refresh) {
 			loadSearchParameters();
 			return true;
-		}else if(id == R.id.action_bookmark_list){
-			Intent intent = new Intent(this, BookmarkActivity.class);
-			intent.putExtra("com.github.ucscclasssearch.listData", listData);
-			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
