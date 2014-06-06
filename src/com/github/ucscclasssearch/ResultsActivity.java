@@ -60,7 +60,8 @@ public class ResultsActivity extends ActionBarActivity {
 		listAdapter = new CourseAdapter(this, (List<? extends Map<String, ?>>) listData,
 				R.layout.search_result_listview_item, 
 				new String[] {"First Line", "Second Line" }, 
-				new int[] {android.R.id.text1, android.R.id.text2 });
+				new int[] {android.R.id.text1, android.R.id.text2 },
+				true );
 		
 		listViewResults.setAdapter(listAdapter);
 		

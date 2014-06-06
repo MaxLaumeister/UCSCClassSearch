@@ -12,12 +12,23 @@ import android.widget.TextView;
 import com.github.ucscclasssearch.R;
 
 public class CourseAdapter extends SimpleAdapter {
+	
+	// showClassStatus determines whether the listview will display an icon next
+	// to the class name showing whether it's open (green circle) or closed
+	// (blue square). For the results activity this should be initialized as
+	// true, but for the bookmark activity it should initialized to false.
+	// This is because the results activity pulls new data in every time,
+	// whereas the bookmark activity displays cached data, and the class status
+	// is very time sensitive data (a class can be open right now, but closed
+	// in an hour from now). The title, professor, and location aren't as time
+	// sensitive so we can pull them from the cache.
+	final boolean showClassStatus;
 
 	public CourseAdapter(Context context,
 			List<? extends Map<String, ?>> data, int resource,
-			String[] from, int[] to) {
+			String[] from, int[] to, boolean showClassStatus) {
 		super(context, data, resource, from, to);
-		// Auto-generated constructor stub
+		this.showClassStatus = showClassStatus;
 	}
 	
 	@Override
@@ -52,10 +63,12 @@ public class CourseAdapter extends SimpleAdapter {
 	    green_circle.setVisibility(View.GONE);
 	    blue_square.setVisibility(View.GONE);
 	    
-	    if (course.status.equals("Open")) {
-	    	green_circle.setVisibility(View.VISIBLE);
-	    } else if (course.status.equals("Closed")) {
-	    	blue_square.setVisibility(View.VISIBLE);
+	    if (showClassStatus) {
+		    if (course.status.equals("Open")) {
+		    	green_circle.setVisibility(View.VISIBLE);
+		    } else if (course.status.equals("Closed")) {
+		    	blue_square.setVisibility(View.VISIBLE);
+		    }
 	    }
 
 	    return v;
