@@ -18,6 +18,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,52 +33,42 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import android.content.Context; 
 import android.app.Application;
 
 
 
 public class BookmarkManager {
-
-	//having a lot of trouble with this line. 
-	static SharedPreferences mPrefs = getApplication.Context().getSharedPreferences(Context.MODE_PRIVATE);
 	
-	public List<Course> courses = new ArrayList<Course>() ;
-
+	// The string that we will use as a key to save/load the course list from shared preferences
+	private static final String PREFS_ID = "BookmarksList";
 	
-   public static  void addBookmark(Course course){
-	   //the function to actually add the bookmarks to the ArrayList. 
-	   List<Course> courses = getBookmarks();
+	// Saves a single course to the bookmarks list in shared preferences
+   public static  void addBookmark(Course course, Context ctx){
+	   List<Course> courses = getBookmarks(ctx);
 	   courses.add(course);
-	   setBookmarks(courses);
-	   
+	   setBookmarks(courses, ctx);
    }
 	
-	public static void setBookmarks(List<Course> courses){
-		//this is the function to load the bookmarks to the list
+   // Saves the list of courses to shared preferences (overwrites existing list)
+	public static void setBookmarks(List<Course> courses, Context ctx){
+		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		Editor prefsEditor = mPrefs.edit();
 		Gson gson = new Gson();
 		String json = gson.toJson(courses);
-		//prefsEditor.putString(courses.course.detail_url,json);
+		prefsEditor.putString(PREFS_ID, json);
 		prefsEditor.commit(); 
-		
-		
 	}
 	
-	public static List<Course> getBookmarks(){
-		//function to fetch the bookmarks.  
+	// Fetches the list of courses from shared preferences
+	public static List<Course> getBookmarks(Context ctx){
+		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		Gson gson = new Gson();
-		String json = mPrefs.getString("bookmarks","");
-		List<Course> bookmarks = new ArrayList<Course>();
-		//bookmarks = gson.fromJson(json, List<Course>);
-		
+		String json = mPrefs.getString(PREFS_ID, "");
+		@SuppressWarnings("unchecked")
+		List<Course> bookmarks = gson.fromJson(json, List.class);
 		return bookmarks; 
-		
 	}
-	
-	
-	
-	
-	
 	
 }
