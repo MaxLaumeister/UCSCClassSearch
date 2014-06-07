@@ -3,6 +3,7 @@ package com.github.ucscclasssearch;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List; 
 
 import org.apache.http.client.methods.HttpPost;
 import com.github.ucscclasssearch.R;
@@ -29,10 +30,13 @@ import android.widget.SimpleAdapter;
 public class MainActivity extends ActionBarActivity {
 
 	public static final String LOG_TAG = "com.github.ucscclasssearch";
+	//public List<Course> courses = new ArrayList<Course>() ;
 	
 	private ListView listViewSearch; // The ListView containing the search parameters
 	private ArrayList<Map<String, String>> listData = new ArrayList<Map<String, String>>(); // The underlying list for the above ListView
 	private SimpleAdapter listAdapter; // The adapter that links listData to ListViewSearch
+
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
