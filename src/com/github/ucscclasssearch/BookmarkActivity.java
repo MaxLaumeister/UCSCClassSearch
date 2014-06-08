@@ -48,6 +48,16 @@ public class BookmarkActivity extends ActionBarActivity {
 		
 		listViewSaves.setAdapter(listAdapter);
 		
+		
+		
+	}
+	
+	@Override
+	protected void onResume(){
+		List<Course> bookmarks = BookmarkManager.getBookmarks(getApplicationContext());
+		listData.clear();
+		listData.addAll(bookmarks);
+		listAdapter.notifyDataSetChanged();
 	}
 	
 	

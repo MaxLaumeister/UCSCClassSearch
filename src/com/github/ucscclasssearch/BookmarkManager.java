@@ -44,13 +44,7 @@ public class BookmarkManager {
 	// The string that we will use as a key to save/load the course list from shared preferences
 	private static final String PREFS_ID = "BookmarksList";
 	
-	// Saves a single course to the bookmarks list in shared preferences
-   public static  void addBookmark(Course course, Context ctx){
-	   List<Course> courses = getBookmarks(ctx);
-	   courses.add(course);
-	   setBookmarks(courses, ctx);
-   }
-	
+
    // Saves the list of courses to shared preferences (overwrites existing list)
 	public static void setBookmarks(List<Course> courses, Context ctx){
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -70,5 +64,13 @@ public class BookmarkManager {
 		List<Course> bookmarks = gson.fromJson(json, List.class);
 		return bookmarks; 
 	}
+	
+	// Saves a single course to the bookmarks list in shared preferences
+	   public static  void addBookmark(Course course, Context ctx){
+		   List<Course> courses = getBookmarks(ctx);
+		   courses.add(course);
+		   setBookmarks(courses, ctx);
+	   }
+		
 	
 }

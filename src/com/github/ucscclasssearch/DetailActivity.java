@@ -16,6 +16,7 @@ import com.github.ucscclasssearch.R;
 public class DetailActivity extends ActionBarActivity {
 	
 	private static final String LOG_TAG = MainActivity.LOG_TAG;
+	CourseDetail course;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class DetailActivity extends ActionBarActivity {
 			@Override
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
-				CourseDetail course = HTMLParser.parseDetailPage(result);
+				 //CourseDetail course = HTMLParser.parseDetailPage(result);
+				course = HTMLParser.parseDetailPage(result);
 				HTTPProgress.dismiss();
 				if (course == null) return;
 				scroll_view.setVisibility(View.VISIBLE);
@@ -83,15 +85,20 @@ public class DetailActivity extends ActionBarActivity {
 		getMenuInflater().inflate(R.menu.detail, menu);
 		return true;
 	}
+	
+	//rewritten to 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		    // Respond to the action bar's Up/Home button
-		    case android.R.id.home:
-		        finish();
-		        return true;
-		    }
+
+	 int id = item.getItemId(); 
+	 if (id == R.id.home){
+		 finish();
+		 return true; 
+	 }
+	if(id == R.id.action_addbookmark){
+		BookmarkManager.addBookmark(course, getApplicationContext());
+	 }
 		return super.onOptionsItemSelected(item);
 	}
 

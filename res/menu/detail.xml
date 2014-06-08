@@ -4,9 +4,9 @@
     tools:context="com.github.ucscclasssearch.DetailActivity" >
     
      <item
-        android:id="@+id/action_addbookmark_list"
+        android:id="@+id/action_addbookmark"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_add"
-        android:title="addBookmark"/>
+        android:title="AddBookmark"/>
 
 </menu>
