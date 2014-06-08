@@ -54,9 +54,10 @@ public class BookmarkActivity extends ActionBarActivity {
 	
 	@Override
 	protected void onResume(){
+		super.onResume();
 		List<Course> bookmarks = BookmarkManager.getBookmarks(getApplicationContext());
 		listData.clear();
-		listData.addAll(bookmarks);
+		if (bookmarks != null) listData.addAll(bookmarks);
 		listAdapter.notifyDataSetChanged();
 	}
 	
