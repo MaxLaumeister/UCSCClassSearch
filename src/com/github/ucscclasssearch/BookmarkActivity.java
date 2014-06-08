@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.ucscclasssearch.R;
+
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView; 
+import android.widget.AdapterView.OnItemClickListener;
 
 public class BookmarkActivity extends ActionBarActivity {
 	
@@ -48,8 +53,18 @@ public class BookmarkActivity extends ActionBarActivity {
 		
 		listViewSaves.setAdapter(listAdapter);
 		
-		
-		
+		listViewSaves.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				Course course = listData.get(position);
+				Intent intent = new Intent(BookmarkActivity.this, DetailActivity.class);
+				intent.putExtra("com.github.ucscclasssearch.detail_url", course.detail_url);
+				startActivity(intent);
+			}
+			
+		});
 	}
 	
 	@Override
