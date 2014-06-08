@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.ucscclasssearch.R;
 
@@ -103,6 +104,7 @@ public class DetailActivity extends ActionBarActivity {
 		
 		if(id == R.id.action_addbookmark){
 			BookmarkManager.addBookmark(course, getApplicationContext());
+			Toast.makeText(this, "Added to Bookmarks", Toast.LENGTH_SHORT).show();
 		}
 		
 		return super.onOptionsItemSelected(item);
