@@ -33,6 +33,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import android.content.Context; 
 import android.app.Application;
@@ -60,8 +61,7 @@ public class BookmarkManager {
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		Gson gson = new Gson();
 		String json = mPrefs.getString(PREFS_ID, "");
-		@SuppressWarnings("unchecked")
-		List<Course> bookmarks = gson.fromJson(json, List.class);
+		List<Course> bookmarks = gson.fromJson(json, new TypeToken<List<Course>>(){}.getType());
 		return bookmarks; 
 	}
 	
