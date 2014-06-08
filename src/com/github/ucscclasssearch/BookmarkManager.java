@@ -45,7 +45,7 @@ public class BookmarkManager {
 	private static final String PREFS_ID = "BookmarksList";
 	
 
-   // Saves the list of courses to shared preferences (overwrites existing list)
+	// Saves the list of courses to shared preferences (overwrites existing list)
 	public static void setBookmarks(List<Course> courses, Context ctx){
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		Editor prefsEditor = mPrefs.edit();
@@ -66,11 +66,11 @@ public class BookmarkManager {
 	}
 	
 	// Saves a single course to the bookmarks list in shared preferences
-	   public static  void addBookmark(Course course, Context ctx){
-		   List<Course> courses = getBookmarks(ctx);
-		   courses.add(course);
-		   setBookmarks(courses, ctx);
-	   }
-		
+	public static  void addBookmark(Course course, Context ctx){
+		List<Course> courses = getBookmarks(ctx);
+		if (courses == null) courses = new ArrayList<Course>();
+		courses.add(course);
+		setBookmarks(courses, ctx);
+	}
 	
 }

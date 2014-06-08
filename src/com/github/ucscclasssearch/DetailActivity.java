@@ -1,16 +1,19 @@
 package com.github.ucscclasssearch;
 
 import org.apache.http.client.methods.HttpGet;
+
 import android.support.v7.app.ActionBarActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.github.ucscclasssearch.R;
 
 public class DetailActivity extends ActionBarActivity {
@@ -90,15 +93,18 @@ public class DetailActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
-	 int id = item.getItemId(); 
-	 if (id == R.id.home){
-		 finish();
-		 return true; 
-	 }
-	if(id == R.id.action_addbookmark){
-		BookmarkManager.addBookmark(course, getApplicationContext());
-	 }
+	
+		int id = item.getItemId();
+		
+		if (id == android.R.id.home){
+			finish();
+			return true; 
+		}
+		
+		if(id == R.id.action_addbookmark){
+			BookmarkManager.addBookmark(course, getApplicationContext());
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
