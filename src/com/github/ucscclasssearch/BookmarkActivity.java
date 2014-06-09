@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.ucscclasssearch.R;
+import com.google.gson.Gson;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,7 +96,17 @@ public class BookmarkActivity extends ActionBarActivity {
 		    case android.R.id.home:
 		    	finish();
 		        return true;
-		    }
+		    
+		    // Clear all bookmarks
+		    case R.id.action_bookmark_clear:
+		    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				Editor prefsEditor = mPrefs.edit();
+				prefsEditor.putString("BookmarksList", "");
+				prefsEditor.commit();
+				listData.clear();
+				listAdapter.notifyDataSetChanged();
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 

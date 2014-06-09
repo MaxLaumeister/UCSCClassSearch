@@ -2,5 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.github.ucscclasssearch.BookmarkActivity" >
-
+    
+    <item
+        android:id="@+id/action_bookmark_clear"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_delete"
+        android:title="Clear"/>
 </menu>
