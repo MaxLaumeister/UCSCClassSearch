@@ -33,7 +33,7 @@
 	        <!-- Parent activity meta-data to support 4.0 and lower -->
 	        <meta-data
 	            android:name="android.support.PARENT_ACTIVITY"
-	            android:value="com.cmps121.ucsccoursebrowser.MainActivity" />
+	            android:value="com.github.ucscclasssearch.MainActivity" />
         </activity>
         <activity
             android:name="com.github.ucscclasssearch.DetailActivity"
@@ -43,7 +43,7 @@
 	        <!-- Parent activity meta-data to support 4.0 and lower -->
 	        <meta-data
 	            android:name="android.support.PARENT_ACTIVITY"
-	            android:value="com.cmps121.ucsccoursebrowser.ResultsActivity" />
+	            android:value="com.github.ucscclasssearch.ResultsActivity" />
         </activity>
         <activity
             android:name="com.github.ucscclasssearch.BookmarkActivity"
