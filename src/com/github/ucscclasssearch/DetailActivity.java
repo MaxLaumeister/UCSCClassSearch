@@ -32,7 +32,7 @@ public class DetailActivity extends ActionBarActivity {
 		// Retrieve url from extras
 		
 		Intent intent = getIntent();
-		final String detail_url = (String) intent.getStringExtra("com.github.ucscclasssearch.detail_url");
+		final String detail_url = intent.getStringExtra("com.github.ucscclasssearch.detail_url");
 		
 		// Enable up navigation
 		
@@ -86,6 +86,14 @@ public class DetailActivity extends ActionBarActivity {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detail, menu);
+		
+		final Boolean show_bookmark_button = getIntent().getBooleanExtra("com.github.ucscclasssearch.show_bookmark_button", true);
+		if (!show_bookmark_button) {
+			MenuItem item = menu.findItem(R.id.action_addbookmark);
+			item.setVisible(false);
+			this.invalidateOptionsMenu();
+		}
+		
 		return true;
 	}
 	

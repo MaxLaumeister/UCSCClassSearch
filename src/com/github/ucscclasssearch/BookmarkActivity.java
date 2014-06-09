@@ -65,6 +65,7 @@ public class BookmarkActivity extends ActionBarActivity {
 				Course course = listData.get(position);
 				Intent intent = new Intent(BookmarkActivity.this, DetailActivity.class);
 				intent.putExtra("com.github.ucscclasssearch.detail_url", course.detail_url);
+				intent.putExtra("com.github.ucscclasssearch.show_bookmark_button", false);
 				startActivity(intent);
 			}
 			
