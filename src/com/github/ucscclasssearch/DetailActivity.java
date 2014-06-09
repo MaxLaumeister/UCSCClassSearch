@@ -32,8 +32,7 @@ public class DetailActivity extends ActionBarActivity {
 		// Retrieve url from extras
 		
 		Intent intent = getIntent();
-		String relative_url = (String) intent.getStringExtra("com.github.ucscclasssearch.detail_url");
-		String detail_url = PisaHTMLModel.baseURL + relative_url;
+		final String detail_url = (String) intent.getStringExtra("com.github.ucscclasssearch.detail_url");
 		
 		// Enable up navigation
 		
@@ -55,7 +54,7 @@ public class DetailActivity extends ActionBarActivity {
 			protected void onPostExecute(String result) {
 				// TODO: Parse this in the Async thread instead of the UI thread
 				 //CourseDetail course = HTMLParser.parseDetailPage(result);
-				course = HTMLParser.parseDetailPage(result);
+				course = HTMLParser.parseDetailPage(detail_url, result);
 				HTTPProgress.dismiss();
 				if (course == null) return;
 				scroll_view.setVisibility(View.VISIBLE);

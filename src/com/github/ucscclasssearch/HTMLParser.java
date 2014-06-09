@@ -100,7 +100,7 @@ public class HTMLParser {
 				final int enrollment_total = Integer.parseInt(tds.get(column_enrollment_total).html()); 
 				final int available_seats = Integer.parseInt(tds.get(column_available_seats).html()); 
 				final String type = StringEscapeUtils.unescapeHtml4(tds.get(column_type).html());
-				final String detail_url = tds.get(column_number).getElementsByTag("a").get(0).attr("href");
+				final String detail_url = PisaHTMLModel.baseURL + tds.get(column_number).getElementsByTag("a").get(0).attr("href");
 				
 				Course course = new Course(title, time, instructor, status, capacity,
 						enrollment_total, available_seats, type, detail_url);
@@ -116,7 +116,7 @@ public class HTMLParser {
 		return result;
 	}
 	
-	public static CourseDetail parseDetailPage(String html_data) {
+	public static CourseDetail parseDetailPage(String url, String html_data) {
 		try {
 			Document doc = Jsoup.parse(html_data);
 			
@@ -184,7 +184,7 @@ public class HTMLParser {
 			String type = StringEscapeUtils.unescapeHtml4(pos_type.getElement().html());
 			int enrollment_total = Integer.parseInt(pos_enrollment_total.getElement().html());
 			int available_seats = Integer.parseInt(pos_available_seats.getElement().html());
-			String detail_url = null; // Don't need this anymore
+			String detail_url = url;
 			String credits = StringEscapeUtils.unescapeHtml4(pos_credits.getElement().html());
 			int wait_list_capacity = Integer.parseInt(pos_wait_list_capacity.getElement().html());
 			
