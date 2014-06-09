@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.github.ucscclasssearch.R;
 
 public class DetailActivity extends ActionBarActivity {
 	
-	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	CourseDetail course;
 	
 	@Override

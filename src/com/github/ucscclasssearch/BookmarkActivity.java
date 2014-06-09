@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.ucscclasssearch.R;
-import com.google.gson.Gson;
-
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,28 +13,18 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView; 
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 
 public class BookmarkActivity extends ActionBarActivity {
-	
-	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
 	private ListView listViewSaves; //the list view 
 	private List<Course> listData;
 	private CourseAdapter listAdapter; 
-	private View footerView; 
-	
-	private boolean flag_items_loading; 
-	private boolean last_saves_page; 
-	private final int SAVES_PER_PAGE = 25; 
 	
 	@SuppressWarnings("unchecked")
 
@@ -46,8 +34,6 @@ public class BookmarkActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bookmark);
 		
-		flag_items_loading = true; 
-		last_saves_page = false; 
 		listViewSaves = (ListView) findViewById(R.id.listViewSaves);
 		listData = new ArrayList<Course>(); 
 		listViewSaves.setAdapter(listAdapter);

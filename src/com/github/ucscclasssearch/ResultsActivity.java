@@ -30,8 +30,6 @@ import android.widget.ListView;
 import android.widget.TextView; 
 
 public class ResultsActivity extends ActionBarActivity {
-
-	private static final String LOG_TAG = MainActivity.LOG_TAG;
 	
 	private ListView listViewResults; // The ListView containing the search results
 	private List<Course> listData; // The underlying list for the above ListView

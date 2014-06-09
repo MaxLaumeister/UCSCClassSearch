@@ -3,8 +3,6 @@ package com.github.ucscclasssearch;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List; 
-
 import org.apache.http.client.methods.HttpPost;
 import com.github.ucscclasssearch.R;
 import com.github.ucscclasssearch.SearchParameter.FieldType;

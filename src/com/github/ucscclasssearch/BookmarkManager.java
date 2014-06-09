@@ -1,42 +1,16 @@
 package com.github.ucscclasssearch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.List; 
 
-import org.apache.http.client.methods.HttpPost;
-
-import com.github.ucscclasssearch.R;
-import com.github.ucscclasssearch.SearchParameter.FieldType;
-
-import android.support.v7.app.ActionBarActivity;
-import android.text.Html;
-import android.text.InputType;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import android.content.Context; 
-import android.app.Application;
+import android.content.Context;
 
 
 
