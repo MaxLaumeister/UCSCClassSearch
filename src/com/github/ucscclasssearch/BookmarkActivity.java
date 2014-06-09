@@ -8,6 +8,8 @@ import com.github.ucscclasssearch.R;
 import com.google.gson.Gson;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -18,8 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView; 
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class BookmarkActivity extends ActionBarActivity {
 	
@@ -100,12 +104,24 @@ public class BookmarkActivity extends ActionBarActivity {
 		    
 		    // Clear all bookmarks
 		    case R.id.action_bookmark_clear:
-		    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				Editor prefsEditor = mPrefs.edit();
-				prefsEditor.putString("BookmarksList", "");
-				prefsEditor.commit();
-				listData.clear();
-				listAdapter.notifyDataSetChanged();
+				AlertDialog.Builder adb = new AlertDialog.Builder(this);
+				adb.setTitle("Delete all bookmarks?");
+				adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+						Editor prefsEditor = mPrefs.edit();
+						prefsEditor.putString("BookmarksList", "");
+						prefsEditor.commit();
+						listData.clear();
+						listAdapter.notifyDataSetChanged();
+					}
+				});
+				adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// Do nothing
+					}
+				});
+				adb.show();
 		}
 		
 		return super.onOptionsItemSelected(item);
