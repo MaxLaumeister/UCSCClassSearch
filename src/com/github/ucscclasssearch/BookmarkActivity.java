@@ -50,7 +50,7 @@ public class BookmarkActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable up navigation
 		
 		listAdapter = new CourseAdapter(this, (List<? extends Map<String, ?>>) listData,
-				R.layout.search_result_listview_item, 
+				R.layout.bookmark_listview_item, 
 				new String[] {"First Line", "Second Line" }, 
 				new int[] {android.R.id.text1, android.R.id.text2 },
 				false);
